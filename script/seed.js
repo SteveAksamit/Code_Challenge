@@ -35,12 +35,12 @@ async function seed () {
   ])
 
   const documents = await Promise.all([
-    Document.create({title: 'Patient File 1', fileName: 'file1.pdf', patientId: 1, documentId: '1a', dateAdded: '2017-12-09'}),
-    Document.create({title: 'Patient File 2', fileName: 'file2.pdf', patientId: 1, documentId: '2a', dateAdded: '2017-12-09'}),
-    Document.create({title: 'Patient File 3', fileName: 'file3.pdf', patientId: 2, documentId: '3a', dateAdded: '2017-12-09'}),
-    Document.create({title: 'Patient File 4', fileName: 'file4.pdf', patientId: 3, documentId: '4a', dateAdded: '2017-12-09'}),
-    Document.create({title: 'Patient File 5', fileName: 'file5.pdf', patientId: 4, documentId: '5a', dateAdded: '2017-12-09'}),
-    Document.create({title: 'Patient File 6', fileName: 'file6.pdf', patientId: 5, documentId: '6a', dateAdded: '2017-12-09'})
+    Document.create({title: 'Patient File 1', fileName: 'file1.pdf', patientId: 1, remoteDocumentId: '1a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 2', fileName: 'file2.pdf', patientId: 1, remoteDocumentId: '2a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 3', fileName: 'file3.pdf', patientId: 2, remoteDocumentId: '3a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 4', fileName: 'file4.pdf', patientId: 3, remoteDocumentId: '4a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 5', fileName: 'file5.pdf', patientId: 4, remoteDocumentId: '5a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 6', fileName: 'file6.pdf', patientId: 5, remoteDocumentId: '6a', dateAdded: '2017-12-09'})
   ])
 
   const appointments = await Promise.all([

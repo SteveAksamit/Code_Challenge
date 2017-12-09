@@ -19,6 +19,9 @@ const Appointment = db.define('appointment', {
   status: {
     type: Sequelize.ENUM('PAST', 'FUTURE', 'PENDING', 'DECLINED')
   },
+  declineMessage: {
+    type: Sequelize.TEXT
+  },
   doctorId: {
     type: Sequelize.INTEGER,
     allowNull: false,

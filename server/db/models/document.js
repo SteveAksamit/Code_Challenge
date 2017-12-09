@@ -9,11 +9,12 @@ const Document = db.define('document', {
   fileName: {
     type: Sequelize.STRING,
   },
-  documentId: {
+  remoteDocumentId: {
     type: Sequelize.STRING,
   },
   dateAdded: {
-    type: Sequelize.DATE
+    type: Sequelize.DATE,
+    defaultValue: Date.now()
   }
 })
 
