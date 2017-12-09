@@ -6,10 +6,29 @@ const User = db.define('user', {
   email: {
     type: Sequelize.STRING,
     unique: true,
+    allowNull: false,
+    validate: {
+      isEmail: true
+    }
+  },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  isDoctor: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
+  },
+  isPatient: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false
   },
   salt: {
     type: Sequelize.STRING

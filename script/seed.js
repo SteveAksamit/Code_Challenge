@@ -1,36 +1,71 @@
-/**
- * Welcome to the seed file! This seed file uses a newer language feature called...
- *
- *                  -=-= ASYNC...AWAIT -=-=
- *
- * Async-await is a joy to use! Read more about it in the MDN docs:
- *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
- *
- * Now that you've got the main idea, check it out in practice below!
- */
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Patient, Doctor, Appointment, Document} = require('../server/db/models')
 
 async function seed () {
   await db.sync({force: true})
   console.log('db synced!')
-  // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
-  // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({id: 1, email: 'janderson@email.com', username: 'janderson', password: '123', isDoctor: true, isPatient: false}),
+    User.create({id: 2, email: 'kmiller@email.com', username: 'kmiller', password: '123', isDoctor: true, isPatient: false}),
+    User.create({id: 3, email: 'ajohnson@email.com', username: 'ajohnson', password: '123', isDoctor: true, isPatient: false}),
+    User.create({id: 4, email: 'mthompson@email.com', username: 'mthompson', password: '123', isDoctor: true, isPatient: false}),
+    User.create({id: 5, email: 'dkelley@email.com', username: 'dkelley', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 6, email: 'saksamit@email.com', username: 'saksamit', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 7, email: 'nguilfoyle@email.com', username: 'nguilfoyle', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 8, email: 'mlopotko@email.com', username: 'mlopotko', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 9, email: 'jemanuel@email.com', username: 'jemanuel', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 10, email: 'rpeters@email.com', username: 'rpeters', password: '123', isDoctor: false, isPatient: true}),
   ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
+
+  const doctors = await Promise.all([
+    Doctor.create({id: 1, name: 'Julie Anderson', userId: 1}),
+    Doctor.create({id: 2, name: 'Katie Miller', userId: 2}),
+    Doctor.create({id: 3, name: 'Andrea Johnon', userId: 3}),
+    Doctor.create({id: 4, name: 'Matt Thompson', userId: 4}),
+  ])
+
+  const patients = await Promise.all([
+    Patient.create({id: 1, name: 'Diane Kelley', age: 41, address: '123 Main Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-111-2222', userId: 5}),
+    Patient.create({id: 2, name: 'Steve Aksamit', age: 77, address: '123 Madison Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-111-8888', userId: 6}),
+    Patient.create({id: 3, name: 'Nancy Guilfoyle', age: 71, address: '123 Michigan Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-888-0000', userId: 7}),
+    Patient.create({id: 4, name: 'Mark Lopotko', age: 62, address: '123 LaSalle Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-444-7777', userId: 8}),
+    Patient.create({id: 5, name: 'Janine Emanuel', age: 23, address: '123 Huron Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-555-9999', userId: 9}),
+    Patient.create({id: 6, name: 'Ronald Peters', age: 33, address: '123 Superior Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-4444', userId: 10})
+  ])
+
+  const documents = await Promise.all([
+    Document.create({title: 'Patient File 1', fileName: 'file1.pdf', patientId: 1, documentId: '1a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 2', fileName: 'file2.pdf', patientId: 1, documentId: '2a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 3', fileName: 'file3.pdf', patientId: 2, documentId: '3a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 4', fileName: 'file4.pdf', patientId: 3, documentId: '4a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 5', fileName: 'file5.pdf', patientId: 4, documentId: '5a', dateAdded: '2017-12-09'}),
+    Document.create({title: 'Patient File 6', fileName: 'file6.pdf', patientId: 5, documentId: '6a', dateAdded: '2017-12-09'})
+  ])
+
+  const appointments = await Promise.all([
+    Appointment.create({date: '2017-11-30 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PAST', doctorId: 1, patientId: 1}),
+    Appointment.create({date: '2017-11-30 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PAST', doctorId: 2, patientId: 2}),
+    Appointment.create({date: '2017-11-30 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PAST', doctorId: 3, patientId: 3}),
+    Appointment.create({date: '2017-11-30 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PAST', doctorId: 4, patientId: 4}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'FUTURE', doctorId: 1, patientId: 1}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'FUTURE', doctorId: 2, patientId: 2}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'FUTURE', doctorId: 2, patientId: 5}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'FUTURE', doctorId: 3, patientId: 6}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PENDING', doctorId: 1, patientId: 1}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'PENDING', doctorId: 2, patientId: 2}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'DECLINED', doctorId: 1, patientId: 5}),
+    Appointment.create({date: '2018-01-15 12:30:00.000-06', purpose: 'Annual Check-up', status: 'DECLINED', doctorId: 2, patientId: 6}),
+  ])
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${patients.length} patients`)
+  console.log(`seeded ${doctors.length} doctors`)
+  console.log(`seeded ${documents.length} documents`)
+  console.log(`seeded ${appointments.length} appointments`)
   console.log(`seeded successfully`)
 }
 
-// Execute the `seed` function
-// `Async` functions always return a promise, so we can use `catch` to handle any errors
-// that might occur inside of `seed`
 seed()
   .catch(err => {
     console.error(err.message)
@@ -43,9 +78,4 @@ seed()
     console.log('db connection closed')
   })
 
-/*
- * note: everything outside of the async function is totally synchronous
- * The console.log below will occur before any of the logs that occur inside
- * of the async function
- */
 console.log('seeding...')
