@@ -23,7 +23,7 @@ router.get('/doctor/allPatients/:doctorId/patientId', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/patient/:patientId', (req, res, next) => {
+router.get('/patient/allPatients/:patientId', (req, res, next) => {
   return Appointment.findAll({
     where: {
       patientId: req.params.patientId
@@ -33,13 +33,13 @@ router.get('/patient/:patientId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/patient/newAppointment', (req, res, next) => {
+router.post('/doctor/newAppointment', (req, res, next) => {
   return Appointment.create(req.body)
     .then(newAppointment => res.json(newAppointment))
     .catch(next)
 })
 
-router.post('/doctor/newAppointment', (req, res, next) => {
+router.post('/patient/newAppointment', (req, res, next) => {
   return Appointment.create(req.body)
     .then(newAppointment => res.json(newAppointment))
     .catch(next)
@@ -47,17 +47,17 @@ router.post('/doctor/newAppointment', (req, res, next) => {
 
 router.put('/doctor/:response/:appointmentId', (req, res, next) => {
   if (req.params.response === false) {
-    Appointment.update({
+    return Appointment.update({
       status: 'DECLINED'
     })
-      .then(() => res.sendStatus(204))
+      .then((updatedAppointment) => res.json(updatedAppointment))
       .catch(next)
   } else if (req.params.response === true) {
-    Appointment.update({
+    return Appointment.update({
       status: 'ACCEPTED'
     })
-    .then(() => res.sendStatus(204))
-    .catch(next)
+      .then((updatedAppointment) => res.json(updatedAppointment))
+      .catch(next)
   }
 })
 
