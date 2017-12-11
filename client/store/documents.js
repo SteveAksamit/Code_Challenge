@@ -41,6 +41,7 @@ export const postDocument = (patientId) =>
 
 /* REDUCER */
 export default function (state = documents, action) {
+  let index;
   switch (action.type) {
     case GET_DOCUMENTS:
       return action.documents
@@ -52,7 +53,13 @@ export default function (state = documents, action) {
       });
       return state
     case UPLOAD_DOCUMENT:
-      return Object.assign({}, state, { documents: state.documents.concat(action.newDocument) })
+      state.forEach((singleDocument, i) => {
+        if (singleDocument.id == action.newDocument.id) index = i
+      })
+      return [
+        ...state.slice(0, index),
+        ...state.slice(index + 1)
+      ]
     default:
       return state
   }

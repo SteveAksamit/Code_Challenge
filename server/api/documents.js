@@ -12,13 +12,7 @@ router.get('/:patientId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/:patientId', (req, res, next) => {
-  return Document.create(req.body)
-    .then((newDocument) => res.json(newDocument))
-    .catch(next)
-})
-
-router.delete('/document/:documentId', (req, res, next) => {
+router.delete('/:documentId', (req, res, next) => {
   return Document.destroy({
     where: {
       id: req.params.documentId
@@ -27,4 +21,11 @@ router.delete('/document/:documentId', (req, res, next) => {
     .then((deletedDocument) => res.json(deletedDocument))
     .catch(next)
 })
+
+router.post('/:patientId', (req, res, next) => {
+  return Document.create(req.body)
+    .then((newDocument) => res.json(newDocument))
+    .catch(next)
+})
+
 

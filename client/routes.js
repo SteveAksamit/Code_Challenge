@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome} from './components'
+import {Main, Login, AllPatients, SinglePatient, DocNewAppt, PatNewAppt} from './components'
 import {me} from './store'
 
 /**
@@ -15,23 +15,27 @@ class Routes extends Component {
   }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isDoctor} = this.props
 
     return (
       <Router history={history}>
         <Main>
           <Switch>
-            {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
             {
-              isLoggedIn &&
+              isLoggedIn && isDoctor &&
                 <Switch>
-                  {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/allPatients" component={AllPatients} />
+                  <Route path="/docNewAppt" component={DocNewAppt} />
                 </Switch>
             }
-            {/* Displays our Login component as a fallback */}
+            {
+              isLoggedIn && !isDoctor &&
+                <Switch>
+                  <Route path="/singlePatient" component={SinglePatient} />
+                  <Route path="/patNewAppt" component={PatNewAppt} />
+                </Switch>
+            }
             <Route component={Login} />
           </Switch>
         </Main>
@@ -45,9 +49,8 @@ class Routes extends Component {
  */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isDoctor: state.user.isDoctor
   }
 }
 
