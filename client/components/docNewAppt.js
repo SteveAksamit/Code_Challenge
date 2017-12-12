@@ -12,7 +12,6 @@ export const DocNewAppt = (props) => {
   )
 }
 
-
 const mapState = (state) => {
   return {
     allPatients: state.allPatients

@@ -2,16 +2,17 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Patient = db.define('patient', {
-  name: {
+  firstName: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  age: {
-    type: Sequelize.INTEGER,
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  dateOfBirth: {
+    type: Sequelize.DATEONLY,
     allowNull: false,
-    validate: {
-      min: 0
-    }
   },
   address: {
     type: Sequelize.STRING,
@@ -31,6 +32,16 @@ const Patient = db.define('patient', {
   },
   phoneNumber: {
     type: Sequelize.STRING
+  }
+},
+{
+  getterMethods: {
+    fullName() {
+      return this.firstName + ' ' + this.lastName
+    },
+    age() {
+      return 41
+    }
   }
 })
 

@@ -11,7 +11,7 @@ async function seed () {
     User.create({id: 3, email: 'ajohnson@email.com', username: 'ajohnson', password: '123', isDoctor: true, isPatient: false}),
     User.create({id: 4, email: 'mthompson@email.com', username: 'mthompson', password: '123', isDoctor: true, isPatient: false}),
     User.create({id: 5, email: 'dkelley@email.com', username: 'dkelley', password: '123', isDoctor: false, isPatient: true}),
-    User.create({id: 6, email: 'saksamit@email.com', username: 'saksamit', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 6, email: 'sjordan@email.com', username: 'saksamit', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 7, email: 'nguilfoyle@email.com', username: 'nguilfoyle', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 8, email: 'mlopotko@email.com', username: 'mlopotko', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 9, email: 'jemanuel@email.com', username: 'jemanuel', password: '123', isDoctor: false, isPatient: true}),
@@ -26,12 +26,12 @@ async function seed () {
   ])
 
   const patients = await Promise.all([
-    Patient.create({id: 1, name: 'Diane Kelley', age: 41, address: '123 Main Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-111-2222', userId: 5}),
-    Patient.create({id: 2, name: 'Steve Aksamit', age: 77, address: '123 Madison Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-111-8888', userId: 6}),
-    Patient.create({id: 3, name: 'Nancy Guilfoyle', age: 71, address: '123 Michigan Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-888-0000', userId: 7}),
-    Patient.create({id: 4, name: 'Mark Lopotko', age: 62, address: '123 LaSalle Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-444-7777', userId: 8}),
-    Patient.create({id: 5, name: 'Janine Emanuel', age: 23, address: '123 Huron Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-555-9999', userId: 9}),
-    Patient.create({id: 6, name: 'Ronald Peters', age: 33, address: '123 Superior Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-4444', userId: 10})
+    Patient.create({id: 1, firstName: 'Diane', lastName:  'Kelley', dateOfBirth: '1941-04-17', address: '123 Main Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-111-2222', userId: 5}),
+    Patient.create({id: 2, firstName: 'Steve', lastName: 'Jordan', dateOfBirth: '1951-05-18', address: '123 Madison Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-111-8888', userId: 6}),
+    Patient.create({id: 3, firstName: 'Nancy', lastName: 'Guilfoyle', dateOfBirth: '1961-06-19', address: '123 Michigan Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-888-0000', userId: 7}),
+    Patient.create({id: 4, firstName: 'Mark', lastName: 'Lopotko', dateOfBirth: '1971-07-20', address: '123 LaSalle Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-444-7777', userId: 8}),
+    Patient.create({id: 5, firstName: 'Janine', lastName: 'Emanuel', dateOfBirth: '1981-08-21', address: '123 Huron Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-555-9999', userId: 9}),
+    Patient.create({id: 6, firstName: 'Ronald', lastName: 'Peters', dateOfBirth: '1991-09-22', address: '123 Superior Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-4444', userId: 10})
   ])
 
   const documents = await Promise.all([

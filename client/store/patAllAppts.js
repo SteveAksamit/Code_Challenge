@@ -2,32 +2,32 @@ import axios from 'axios'
 import history from '../history'
 
 /* ACTION TYPES*/
-const GET_ALL_APPOINTMENTS_FOR_PATIENT = 'GET_ALL_APPOINTMENTS_FOR_PATIENT'
-const NEW_APPOINTMENT_FROM_PATIENT = 'NEW_APPOINTMENT_FROM_PATIENT'
-const CANCEL_APPOINTMENT = 'CANCEL_APPOINTMENT'
+const GET_ALL_APPTS_FOR_PAT = 'GET_ALL_APPTS_FOR_PAT'
+const NEW_APPT_FROM_PAT = 'NEW_APPT_FROM_PAT'
+const CANCEL_APPT = 'CANCEL_APPT'
 
 /* INITIAL STATE */
 const patAllAppts = []
 
 /* ACTION CREATORS */
-const getAllAppointmentsForPatient = allPatsAppts => ({ type: GET_ALL_APPOINTMENTS_FOR_PATIENT, allPatsAppts })
-const newAppointmentFromPatient = newPatAppt => ({ type: NEW_APPOINTMENT_FROM_PATIENT, newPatAppt })
-const appointmentCancellation = cancelledAppt => ({ type: CANCEL_APPOINTMENT, cancelledAppt })
+const getAllApptsForPat = allPatsAppts => ({ type: GET_ALL_APPTS_FOR_PAT, allPatsAppts })
+const newApptFromPat = newPatAppt => ({ type: NEW_APPT_FROM_PAT, newPatAppt })
+const appointmentCancellation = cancelledAppt => ({ type: CANCEL_APPT, cancelledAppt })
 
 /* THUNK CREATORS */
-export const fetchAllAppointmentsForPatient = (patientId) =>
+export const fetchAllApptsForPat = (patientId) =>
   dispatch =>
     axios.get(`/api/patientAppointments/allPatients/${patientId}`)
       .then(res =>
-        dispatch(getAllAppointmentsForPatient(res.data))
+        dispatch(getAllApptsForPat(res.data))
       )
       .catch(err => console.log(err))
 
-export const postNewAppointmentFromPatient = () =>
+export const postNewApptFromPat = () =>
   dispatch =>
     axios.post('/api/patientAppointments/newAppointment')
       .then(res =>
-        dispatch(newAppointmentFromPatient(res.data))
+        dispatch(newApptFromPat(res.data))
       )
       .catch(err => console.log(err))
 
@@ -43,11 +43,11 @@ export const cancelAppointment = (appointmentId) =>
 export default function (state = patAllAppts, action) {
   let index;
   switch (action.type) {
-    case GET_ALL_APPOINTMENTS_FOR_PATIENT:
+    case GET_ALL_APPTS_FOR_PAT:
       return action.allPatsAppts
-    case NEW_APPOINTMENT_FROM_PATIENT:
+    case NEW_APPT_FROM_PAT:
       return [...state, action.newPatAppt]
-    case CANCEL_APPOINTMENT:
+    case CANCEL_APPT:
       state.forEach((appt, i) => {
         if (appt.id == action.updatedAppt) index = i
       })

@@ -17,7 +17,7 @@ const doctorReponse = updatedAppt => ({ type: DOC_RESPONSE_TO_APPT_REQUEST, upda
 /* THUNK CREATORS */
 export const fetchSinglePatApptsForDoc = (doctorId, patientId) =>
   dispatch =>
-    axios.get(`/api/appointments/doctor/allPatients/${doctorId}/${patientId}`)
+    axios.get(`/api/doctorAppointments/allPatients/${doctorId}/${patientId}`)
       .then(res =>
         dispatch(getSinglePatApptsForDoc(res.data))
       )

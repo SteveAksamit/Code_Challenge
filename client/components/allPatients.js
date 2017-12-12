@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
-import { List, Button, Image } from 'semantic-ui-react'
+import { List, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { fetchAllPatients } from '../store'
+import { fetchAllPatients, fetchAllApptsForDoc } from '../store'
 
 class AllPatients extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    this.props.fetchComponentData()
+    this.props.loadInitialData()
   }
 
   render() {
@@ -18,13 +15,12 @@ class AllPatients extends Component {
       <List divided verticalAlign='middle'>
         {allPatients.map(patient => {
           return (
-            <List.Item key={patient.id}>
+            <List.Item key={patient.id} animated='true'>
               <List.Content floated='right'>
-                <Button>View Patient</Button>
+                <Button onClick={this.props.handleClick} value={patient.id}>View Patient</Button>
               </List.Content>
-              <Image avatar src='/assets/images/avatar/small/lena.png' />
               <List.Content>
-                {patient.name}
+                {patient.fullName}
               </List.Content>
             </List.Item>
           )
@@ -40,10 +36,13 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-    fetchComponentData() {
+    loadInitialData() {
       dispatch(fetchAllPatients())
+    },
+    handleClick(evt) {
+      ownProps.history.push(`/patient/${evt.target.value}`)
     }
   }
 }

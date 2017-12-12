@@ -23,7 +23,7 @@ export const fetchSinglePatient = (patientId) =>
 export default function (state = singlePatient, action) {
   switch (action.type) {
     case GET_SINGLE_PATIENT:
-      return action.singlePatient
+      return action.foundPatient
     default:
       return state
   }

@@ -25,8 +25,10 @@ class Routes extends Component {
             {
               isLoggedIn && isDoctor &&
                 <Switch>
+                  <Route exact path="/" component={AllPatients} />
                   <Route path="/allPatients" component={AllPatients} />
                   <Route path="/docNewAppt" component={DocNewAppt} />
+                  <Route path="/patient/:patientId" component={SinglePatient} />
                 </Switch>
             }
             {
