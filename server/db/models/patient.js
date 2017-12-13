@@ -11,7 +11,7 @@ const Patient = db.define('patient', {
     allowNull: false
   },
   dateOfBirth: {
-    type: Sequelize.DATEONLY,
+    type: Sequelize.DATE,
     allowNull: false,
   },
   address: {
@@ -40,7 +40,9 @@ const Patient = db.define('patient', {
       return this.firstName + ' ' + this.lastName
     },
     age() {
-      return 41
+        let ageDifMs = Date.now() - this.dateOfBirth.getTime();
+        let ageDate = new Date(ageDifMs);
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
     }
   }
 })

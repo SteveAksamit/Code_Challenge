@@ -13,7 +13,7 @@ const getAllApptsForDocs = allDocsAppts => ({ type: GET_ALL_APPTS_FOR_DOC, allDo
 /* THUNK CREATORS */
 export const fetchAllApptsForDoc = (doctorId) =>
   dispatch =>
-    axios.get(`/api/appointments/doctor/allPatients/${doctorId}`)
+    axios.get(`/api/doctorAppointments/allPatients/${doctorId}`)
       .then(res =>
         dispatch(getAllApptsForDocs(res.data))
       )

@@ -17,23 +17,23 @@ const doctorReponse = updatedAppt => ({ type: DOC_RESPONSE_TO_APPT_REQUEST, upda
 /* THUNK CREATORS */
 export const fetchSinglePatApptsForDoc = (doctorId, patientId) =>
   dispatch =>
-    axios.get(`/api/doctorAppointments/allPatients/${doctorId}/${patientId}`)
+    axios.get(`/api/doctorAppointments/singlePatient/${doctorId}/${patientId}`)
       .then(res =>
         dispatch(getSinglePatApptsForDoc(res.data))
       )
       .catch(err => console.log(err))
 
-export const postNewApptFromDoc = () =>
+export const postNewApptFromDoc = (date, patientId, purpose) =>
   dispatch =>
-    axios.post('/api/appointments/doctor/newAppointment')
+    axios.post('/api/appointments/doctor/newAppointment', {dateTime, patientId, purpose})
       .then(res =>
         dispatch(newApptFromDoc(res.data))
       )
       .catch(err => console.log(err))
 
-export const docApptRequestResponse = (appointmentId, response) =>
+export const docApptRequestResponse = (response, appointmentId, message) =>
   dispatch =>
-    axios.delete(`/api/appointments/doctor/${response}/${appointmentId}`)
+    axios.put(`/api/doctorAppointments/${response}/${appointmentId}`, {message})
       .then(res =>
         dispatch(doctorReponse(res.data))
       )
@@ -49,12 +49,12 @@ export default function (state = docSinglePatAppts, action) {
       return [...state, action.newDocAppt]
     case DOC_RESPONSE_TO_APPT_REQUEST:
       state.forEach((appt, i) => {
-        if (appt.id == action.updatedAppt) index = i
+        if (appt.id == action.updatedAppt.id) index = i
       })
       return [
         ...state.slice(0, index),
         action.updatedAppt,
-        ...state.slice(index)
+        ...state.slice(index + 1)
       ]
     default:
       return state

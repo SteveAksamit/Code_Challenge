@@ -2,9 +2,10 @@ const router = require('express').Router()
 const { Appointment } = require('../db/models')
 module.exports = router
 
-router.get('/singlePatient/:doctorId', (req, res, next) => {
+router.get('/singlePatient/:doctorId/:patientId', (req, res, next) => {
   return Appointment.findAll({
     where: {
+      patientId: req.params.patientId,
       doctorId: req.params.doctorId
     }
   })
@@ -12,10 +13,9 @@ router.get('/singlePatient/:doctorId', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/allPatients/:doctorId/:patientId', (req, res, next) => {
+router.get('/allPatients/:doctorId', (req, res, next) => {
   return Appointment.findAll({
     where: {
-      patientId: req.params.patientId,
       doctorId: req.params.doctorId
     }
   })
@@ -30,18 +30,18 @@ router.post('/newAppointment', (req, res, next) => {
 })
 
 router.put('/:response/:appointmentId', (req, res, next) => {
-  if (req.params.response === false) {
-    return Appointment.update({
-      status: 'DECLINED'
-    })
-      .then((updatedAppointment) => res.json(updatedAppointment))
-      .catch(next)
-  } else if (req.params.response === true) {
-    return Appointment.update({
-      status: 'ACCEPTED'
-    })
-      .then((updatedAppointment) => res.json(updatedAppointment))
-      .catch(next)
-  }
+  let newStatus = (req.params.response === 'true') ? 'ACCEPTED' : 'DECLINED'
+  let id = +req.params.appointmentId
+  let message = req.body.message
+  return Appointment.update(
+      {status: newStatus,
+      declineMessage: message},
+      {where: {
+        id: id
+      }
+  })
+    .then(()=> Appointment.findById(id))
+    .then(updatedAppointment => res.json(updatedAppointment))
+    .catch(next)
 })
 
