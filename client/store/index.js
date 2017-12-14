@@ -10,8 +10,9 @@ import docSinglePatAppts from './docSinglePatAppts'
 import docAllAppts from './docAllAppts'
 import patAllAppts from './patAllAppts'
 import documents from './documents'
+import loggedInDoctor from './singleDoctor'
 
-const reducer = combineReducers({user, doctors, allPatients, singlePatient, docSinglePatAppts, docAllAppts, patAllAppts, documents})
+const reducer = combineReducers({user, doctors, allPatients, singlePatient, docSinglePatAppts, docAllAppts, patAllAppts, documents, loggedInDoctor})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -27,3 +28,4 @@ export * from './patAllAppts'
 export * from './docAllAppts'
 export * from './docSinglePatAppts'
 export * from './documents'
+export * from './singleDoctor'

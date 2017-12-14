@@ -1,18 +1,45 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
-import { AllPatients } from '../components'
-import { fetchSinglePatient, fetchSinglePatApptsForDoc } from '../store'
+import { AllPatients, ViewDocument } from '../components'
+import { fetchSingleDoctor } from '../store'
 
-const DoctorView = () => {
+class DoctorView extends Component {
+  constructor(props){
+    super(props)
 
-  return (
-    <div>
-      <AllPatients />
-    </div>
-  )
+  }
 
+  componentDidMount() {
+    const { user } = this.props
+    this.props.loadInitialData(user.id)
+  }
+
+  render() {
+    return (
+      Object.keys(this.props.loggedInDoctor).length > 0 &&
+      <div>
+        <AllPatients doctorId={this.props.loggedInDoctor.id} />
+      </div>
+    )
+  }
 }
 
-export default DoctorView
+const mapState = (state) => {
+  return {
+    user: state.user,
+    loggedInDoctor: state.loggedInDoctor
+
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    loadInitialData(userId) {
+      dispatch(fetchSingleDoctor(userId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(DoctorView)

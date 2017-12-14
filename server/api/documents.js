@@ -13,12 +13,13 @@ router.get('/:patientId', (req, res, next) => {
 })
 
 router.delete('/:documentId', (req, res, next) => {
+
   return Document.destroy({
     where: {
       id: req.params.documentId
     }
   })
-    .then((deletedDocument) => res.json(deletedDocument))
+    .then(() => res.json(req.params.documentId))
     .catch(next)
 })
 

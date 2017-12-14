@@ -24,23 +24,38 @@ router.get('/allPatients/:doctorId', (req, res, next) => {
 })
 
 router.post('/newAppointment', (req, res, next) => {
-  return Appointment.create(req.body)
+  const {date, time, purpose, patientId, doctorId} = req.body
+
+  let dateTime = date.slice(0,10) + ' ' + time
+  console.log(date, time, dateTime, purpose, patientId, doctorId)
+  return Appointment.create({
+    date: dateTime,
+    purpose: purpose,
+    patientId: patientId,
+    doctorId: doctorId,
+    status: 'UPCOMING',
+    message: 'Scheduled by Doctor'
+  })
     .then(newAppointment => res.json(newAppointment))
     .catch(next)
 })
 
 router.put('/:response/:appointmentId', (req, res, next) => {
-  let newStatus = (req.params.response === 'true') ? 'ACCEPTED' : 'DECLINED'
+  let newStatus = (req.params.response === 'true') ? 'UPCOMING' : 'DECLINED'
   let id = +req.params.appointmentId
-  let message = req.body.message
+  let message = req.body.message || 'Accepted by Doctor'
+  console.log('mesage', message)
   return Appointment.update(
-      {status: newStatus,
-      declineMessage: message},
-      {where: {
+    {
+      status: newStatus,
+      message: message
+    },
+    {
+      where: {
         id: id
       }
-  })
-    .then(()=> Appointment.findById(id))
+    })
+    .then(() => Appointment.findById(id))
     .then(updatedAppointment => res.json(updatedAppointment))
     .catch(next)
 })

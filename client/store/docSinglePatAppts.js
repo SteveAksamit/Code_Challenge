@@ -23,9 +23,9 @@ export const fetchSinglePatApptsForDoc = (doctorId, patientId) =>
       )
       .catch(err => console.log(err))
 
-export const postNewApptFromDoc = (date, patientId, purpose) =>
+export const postNewApptFromDoc = (date, time, purpose, patientId, doctorId) =>
   dispatch =>
-    axios.post('/api/appointments/doctor/newAppointment', {dateTime, patientId, purpose})
+    axios.post('/api/doctorAppointments/newAppointment', {date, time, purpose, patientId, doctorId})
       .then(res =>
         dispatch(newApptFromDoc(res.data))
       )

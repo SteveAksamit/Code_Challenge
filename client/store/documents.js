@@ -11,7 +11,7 @@ const documents = []
 
 /* ACTION CREATORS */
 const getDocuments = foundDocuments => ({ type: GET_DOCUMENTS, foundDocuments })
-const deleteDocument = deletedDocument => ({ type: DELETE_DOCUMENT, deletedDocument })
+const deleteDocument = deletedDocumentId => ({ type: DELETE_DOCUMENT, deletedDocumentId })
 const uploadDocuments = newDocument => ({ type: UPLOAD_DOCUMENT, newDocument })
 
 /* THUNK CREATORS */
@@ -23,9 +23,9 @@ export const fetchDocuments = (patientId) =>
       )
       .catch(err => console.log(err))
 
-export const removeDocument = (patientId) =>
+export const removeDocument = (documentId) =>
   dispatch =>
-    axios.delete(`/api/documents/${patientId}`)
+    axios.delete(`/api/documents/${documentId}`)
       .then(res =>
         dispatch(deleteDocument(res.data))
       )
@@ -44,21 +44,20 @@ export default function (state = documents, action) {
   let index;
   switch (action.type) {
     case GET_DOCUMENTS:
-      return action.documents
+      return action.foundDocuments
     case DELETE_DOCUMENT:
-      state.documents.forEach((singleDocument, i) => {
-        if (singleDocument.id == action.deletedDocument.id) {
-          state.documents.splice(i, 1);
+      state.forEach((singleDocument, i) => {
+        if (singleDocument.id == action.deletedDocumentId){
+          index = i
         }
       });
-      return state
-    case UPLOAD_DOCUMENT:
-      state.forEach((singleDocument, i) => {
-        if (singleDocument.id == action.newDocument.id) index = i
-      })
       return [
         ...state.slice(0, index),
         ...state.slice(index + 1)
+      ]
+    case UPLOAD_DOCUMENT:
+      return [
+        [...state, action.newDocument]
       ]
     default:
       return state

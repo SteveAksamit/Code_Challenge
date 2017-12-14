@@ -8,7 +8,7 @@ const SinglePatient = (props => {
       <div>
         <Table singleLine>
         <Table.Header>
-          <Table.Row>
+          <Table.Row textAlign='center'>
             <Table.HeaderCell>Patient Name</Table.HeaderCell>
             <Table.HeaderCell>Age</Table.HeaderCell>
             <Table.HeaderCell>E-mail Address</Table.HeaderCell>
@@ -19,7 +19,7 @@ const SinglePatient = (props => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          <Table.Row>
+          <Table.Row textAlign='center'>
             <Table.Cell>{patient.fullName}</Table.Cell>
             <Table.Cell>{patient.age}</Table.Cell>
             <Table.Cell>{email}</Table.Cell>

@@ -50,11 +50,12 @@ class AllAppointments extends Component {
         <div>
           <Table singleLine>
             <Table.Header>
-              <Table.Row >
+              <Table.Row textAlign='center'>
                 <Table.HeaderCell>Appointment Status</Table.HeaderCell>
                 <Table.HeaderCell>Appointment Purpose</Table.HeaderCell>
                 <Table.HeaderCell>Date</Table.HeaderCell>
                 <Table.HeaderCell>Time</Table.HeaderCell>
+                <Table.HeaderCell>Notes</Table.HeaderCell>
                 <Table.HeaderCell>Action</Table.HeaderCell>
               </Table.Row>
             </Table.Header>

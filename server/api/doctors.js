@@ -7,3 +7,13 @@ router.get('/', (req, res, next) => {
     .then(doctors => res.json(doctors))
     .catch(next)
 })
+
+router.get('/singleDoctor/:userId', (req, res, next) => {
+  return Doctor.findOne({
+    where: {
+      userId: req.params.userId
+    }
+  })
+    .then(doctor => res.json(doctor))
+    .catch(next)
+})

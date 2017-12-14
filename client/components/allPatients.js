@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Accordion, Icon, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SinglePatient, AllAppointments } from '../components'
-import { fetchAllPatients, fetchAllApptsForDoc } from '../store'
+import { SinglePatient, AllAppointments, DocNewAppt, Documents } from '../components'
+import { fetchAllPatients, fetchAllApptsForDoc} from '../store'
 
 class AllPatients extends Component {
   constructor(props) {
@@ -10,13 +10,15 @@ class AllPatients extends Component {
     this.state = {
       activeIndex: -1,
       inputValue: '',
-      isDirty: false
+      isDirty: false,
+      showForm: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.filterChange = this.filterChange.bind(this)
+    this.showForm = this.showForm.bind(this)
   }
   componentDidMount() {
-    let doctorId = this.props.user.id
+    let doctorId = this.props.doctorId
     this.props.loadInitialData(doctorId)
   }
 
@@ -24,6 +26,12 @@ class AllPatients extends Component {
     this.setState({
       inputValue: event.target.value
     });
+  }
+
+  showForm() {
+    let currentView = this.state.showForm
+    if (currentView) this.setState({ showForm: false })
+    if (!currentView) this.setState({ showForm: true})
   }
 
   handleClick(evt, titleProps) {
@@ -37,9 +45,9 @@ class AllPatients extends Component {
     let regex = new RegExp(this.state.inputValue, 'i')
     let allPatients = this.props.allPatients.filter((patient) => {
       if (patient.fullName.match(regex)) {
-          return patient
+        return patient
       }
-  });
+    });
     const { user, docAllAppts } = this.props
     const { activeIndex } = this.state
     const apptCache = {}
@@ -60,8 +68,8 @@ class AllPatients extends Component {
       Object.keys(apptCache).length > 0 &&
       <div>
         <div style={{ display: 'flex', 'justifyContent': 'space-between' }}>
-          <h3 style={{'padding': '0.5em 0 0.5em 1em'}}>Patients </h3>
-          <Input focus placeholder='Search...' value={this.state.inputValue} onChange={this.filterChange} style={{'padding': '0 5em 0.5em 0'}}/>
+          <h3 style={{ 'padding': '0.5em 0 0.5em 1em' }}>Patients </h3>
+          <Input focus placeholder='Search...' value={this.state.inputValue} onChange={this.filterChange} style={{ 'padding': '0 5em 0.5em 0' }} />
         </div>
         <div>
           <Accordion fluid styled >
@@ -78,7 +86,14 @@ class AllPatients extends Component {
                   <Accordion.Content active={activeIndex === i}>
                     {activeIndex === i &&
                       <div>
+                        <Button onClick={this.showForm} style={{ 'marginBottom': '1em' }}>Schedule New Appointment</Button>
+                        {this.state.showForm && activeIndex === i &&
+                          <div>
+                            <DocNewAppt patientId={patient.id} showForm={this.showForm} />
+                          </div>
+                        }
                         <SinglePatient patient={patient} />
+                        <Documents patientId={patient.id} />
                         <AllAppointments patientId={patient.id} doctorId={user.id} />
                       </div>
                     }
@@ -89,7 +104,7 @@ class AllPatients extends Component {
           </Accordion>
         </div>
       </div>
-        )
+    )
   }
 }
 
@@ -103,8 +118,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-          loadInitialData(doctorId) {
-        dispatch(fetchAllPatients())
+    loadInitialData(doctorId) {
+      dispatch(fetchAllPatients())
       dispatch(fetchAllApptsForDoc(doctorId))
     }
   }

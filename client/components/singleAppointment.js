@@ -32,11 +32,12 @@ const SingleAppointment = (props => {
                 </Button.Group>
     }
     return (
-      <Table.Row key={appointment.id}>
+      <Table.Row key={appointment.id} textAlign='center'>
         <Table.Cell>{appointment.status}</Table.Cell>
         <Table.Cell>{appointment.purpose}</Table.Cell>
         <Table.Cell>{month + '-' + day + '-' + year}</Table.Cell>
         <Table.Cell>{hh + ':' + mm + ' ' + clock}</Table.Cell>
+        <Table.Cell>{appointment.message}</Table.Cell>
         <Table.Cell>{button}</Table.Cell>
       </Table.Row>
     )
