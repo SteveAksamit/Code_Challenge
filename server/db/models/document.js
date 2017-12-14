@@ -4,10 +4,11 @@ const db = require('../db')
 const Document = db.define('document', {
   title: {
     type: Sequelize.STRING,
-    allowNull: false
+    defaultValue: 'Uploaded Document'
   },
   fileName: {
     type: Sequelize.STRING,
+    allowNull: false
   },
   dateAdded: {
     type: Sequelize.DATE,

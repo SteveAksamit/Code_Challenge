@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { fetchDocuments, removeDocument } from '../store'
 import { Table, Button } from 'semantic-ui-react'
 import { SingleDocument, ViewDocument } from '../components'
-
-
+import PropTypes from 'prop-types'
 
 class Documents extends Component {
   constructor(props) {
@@ -31,7 +30,7 @@ class Documents extends Component {
   }
 
   render() {
-    const {documents, deleteDocument} = this.props
+    const {documents, deleteDocument, patientId} = this.props
     let documentRender = this.state.documentRender
     return (
       documents.length > 0 &&

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Table, Form, Button, Message, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SingleAppointment } from '../components'
+import { SingleAppointment, DocNewAppt } from '../components'
 import { fetchSinglePatApptsForDoc, docApptRequestResponse } from '../store'
 
 class AllAppointments extends Component {
@@ -47,6 +48,12 @@ class AllAppointments extends Component {
     return (
       allAppointments.length > 0 &&
       <div>
+      <Button onClick={this.props.toggle} style={{ 'marginBottom': '1em' }} value='scheduleForm'>Schedule New Appointment</Button>
+      {this.props.scheduleForm && this.props.activeIndex === this.props.i &&
+        <div>
+          <DocNewAppt patientId={this.props.patientId} toggle={this.props.toggle} />
+        </div>
+      }
         <div>
           <Table singleLine>
             <Table.Header>
@@ -64,8 +71,7 @@ class AllAppointments extends Component {
                 return (
                   <SingleAppointment appointment={appointment} key={appointment.id} showDeclineReason={this.showDeclineReason} />
                 )
-              })
-              }
+              })}
             </Table.Body>
           </Table>
         </div>
@@ -76,8 +82,8 @@ class AllAppointments extends Component {
               <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
                 <Form.Field>
                   <Input size='large' placeholder='Reason for declining' value={this.state.reason} />
+                  <Button type='submit' >Submit</Button>
                 </Form.Field>
-                <Button type='submit' >Submit</Button>
               </Form>
             </Message>
           </div>

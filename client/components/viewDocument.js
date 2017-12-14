@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Document, Page } from 'react-pdf/build/entry.noworker';
+import PropTypes from 'prop-types'
 
-class ViewDocument extends Component{
-  constructor(){
+class ViewDocument extends Component {
+  constructor() {
     super()
     this.state = {
       numPages: null,
@@ -10,27 +11,27 @@ class ViewDocument extends Component{
     }
   }
 
-    onDocumentLoad = ({ numPages }) => {
-      this.setState({ numPages });
-    }
-
-    render() {
-      const { pageNumber, numPages } = this.state;
-      const {fileName} = this.props
-      const path = '/files/' + fileName
-      return (
-        <div>
-          <Document
-            file={path}
-            onLoadSuccess={this.onDocumentLoad}
-          >
-            <Page pageNumber={pageNumber} />
-          </Document>
-          <p>Page {pageNumber} of {numPages}</p>
-        </div>
-      );
-    }
+  onDocumentLoad = ({ numPages }) => {
+    this.setState({ numPages });
   }
+
+  render() {
+    const { pageNumber, numPages } = this.state;
+    const { fileName } = this.props
+    const path = '/files/' + fileName
+    return (
+      <div>
+        <Document
+          file={path}
+          onLoadSuccess={this.onDocumentLoad}
+        >
+          <Page pageNumber={pageNumber} />
+        </Document>
+        <p>Page {pageNumber} of {numPages}</p>
+      </div>
+    );
+  }
+}
 
 
 export default ViewDocument

@@ -11,6 +11,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const fileUpload = require('express-fileupload');
 module.exports = app
 
 /**
@@ -40,6 +41,9 @@ const createApp = () => {
 
   // compression middleware
   app.use(compression())
+
+  //file uploader
+  //app.use(fileUpload());
 
   // session middleware with passport
   app.use(session({

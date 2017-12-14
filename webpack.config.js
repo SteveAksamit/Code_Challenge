@@ -28,3 +28,11 @@ module.exports = {
 
   plugins: isDev ? [new LiveReloadPlugin({appendScriptTag: true})] : []
 }
+
+
+// , new CopyWebpackPlugin([
+//   {
+//     from: 'node_modules/pdfjs-dist/cmaps/',
+//     to: 'cmaps/'
+//   },
+// ])]

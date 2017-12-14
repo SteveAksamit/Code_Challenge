@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Accordion, Icon, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SinglePatient, AllAppointments, DocNewAppt, Documents } from '../components'
-import { fetchAllPatients, fetchAllApptsForDoc} from '../store'
+import { SinglePatient, AllAppointments, Documents, UploadDocuments } from '../components'
+import { fetchAllPatients, fetchAllApptsForDoc } from '../store'
 
 class AllPatients extends Component {
   constructor(props) {
@@ -11,11 +11,13 @@ class AllPatients extends Component {
       activeIndex: -1,
       inputValue: '',
       isDirty: false,
-      showForm: false
+      scheduleForm: false,
+      moduleShowing: null
     }
     this.handleClick = this.handleClick.bind(this)
     this.filterChange = this.filterChange.bind(this)
-    this.showForm = this.showForm.bind(this)
+    this.toggle = this.toggle.bind(this)
+    this.toggleModules = this.toggleModules.bind(this)
   }
   componentDidMount() {
     let doctorId = this.props.doctorId
@@ -28,10 +30,17 @@ class AllPatients extends Component {
     });
   }
 
-  showForm() {
-    let currentView = this.state.showForm
-    if (currentView) this.setState({ showForm: false })
-    if (!currentView) this.setState({ showForm: true})
+  toggle(evt, name) {
+    let element = (typeof (name) === 'string') ? name : evt.target.value
+    let currentView = this.state[element]
+    if (currentView) this.setState({ [element]: false })
+    if (!currentView) this.setState({ [element]: true })
+  }
+  toggleModules(evt, name) {
+    let newView = evt.target.value
+    let current = this.state.moduleShowing
+    if (newView === current ) this.setState({moduleShowing: null})
+    else this.setState({moduleShowing: newView})
   }
 
   handleClick(evt, titleProps) {
@@ -86,15 +95,21 @@ class AllPatients extends Component {
                   <Accordion.Content active={activeIndex === i}>
                     {activeIndex === i &&
                       <div>
-                        <Button onClick={this.showForm} style={{ 'marginBottom': '1em' }}>Schedule New Appointment</Button>
-                        {this.state.showForm && activeIndex === i &&
-                          <div>
-                            <DocNewAppt patientId={patient.id} showForm={this.showForm} />
-                          </div>
-                        }
                         <SinglePatient patient={patient} />
-                        <Documents patientId={patient.id} />
-                        <AllAppointments patientId={patient.id} doctorId={user.id} />
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 2em 1em 0' }} value='documents'>Documents</Button>
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='appointments'>Appointments</Button>
+                        {this.state.moduleShowing === 'documents' &&
+                          <div>
+                            <UploadDocuments patientId={patient.id} />
+                            <Documents patientId={patient.id} />
+                          </div>}
+                        {this.state.moduleShowing === 'appointments' &&
+                          <AllAppointments
+                            patientId={patient.id}
+                            doctorId={user.id}
+                            toggle={this.toggle}
+                            scheduleForm={this.state.scheduleForm}
+                            activeIndex={activeIndex} i={i} />}
                       </div>
                     }
                   </Accordion.Content>

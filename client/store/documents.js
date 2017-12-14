@@ -31,13 +31,22 @@ export const removeDocument = (documentId) =>
       )
       .catch(err => console.log(err))
 
-export const postDocument = (patientId) =>
-  dispatch =>
-    axios.post(`/api/documents/${patientId}`)
+export const uploadDocument = ({file, name, patientId, title}) => {
+  let data = new FormData();
+  data.append('file', file);
+  data.append('name', name);
+  return (dispatch) => {
+    axios.post('/api/documents/upload/', data)
+      .then(res => {
+        let fileName = res.data
+        return axios.post('/api/documents/record', {fileName, patientId, title})
+      })
       .then(res =>
         dispatch(uploadDocuments(res.data))
       )
       .catch(err => console.log(err))
+  }
+}
 
 /* REDUCER */
 export default function (state = documents, action) {
@@ -47,7 +56,7 @@ export default function (state = documents, action) {
       return action.foundDocuments
     case DELETE_DOCUMENT:
       state.forEach((singleDocument, i) => {
-        if (singleDocument.id == action.deletedDocumentId){
+        if (singleDocument.id == action.deletedDocumentId) {
           index = i
         }
       });
@@ -56,9 +65,7 @@ export default function (state = documents, action) {
         ...state.slice(index + 1)
       ]
     case UPLOAD_DOCUMENT:
-      return [
-        [...state, action.newDocument]
-      ]
+      return [...state, action.newDocument]
     default:
       return state
   }

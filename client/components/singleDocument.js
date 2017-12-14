@@ -3,7 +3,7 @@ import { Table, Button } from 'semantic-ui-react'
 
 const SingleDocument = (props => {
   const { singleDocument, deleteDocument, viewDocument } = props
-  const date = singleDocument.dateAdded.slice(0, singleDocument.dateAdded.indexOf('T'))
+  const date = singleDocument.dateAdded.slice(0,10)
   const month = date.slice(5, 7)
   const day = date.slice(-2)
   const year = date.slice(0, 4)

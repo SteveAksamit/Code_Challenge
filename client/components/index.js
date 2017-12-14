@@ -18,4 +18,4 @@ export {default as TimeSelector} from './timeSelector'
 export {default as Documents} from './documents'
 export {default as SingleDocument} from './singleDocument'
 export {default as ViewDocument} from './viewDocument'
-
+export {default as UploadDocuments} from './uploadDocuments'

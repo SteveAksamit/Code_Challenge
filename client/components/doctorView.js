@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
-import { AllPatients, ViewDocument } from '../components'
+import { AllPatients } from '../components'
 import { fetchSingleDoctor } from '../store'
 
 class DoctorView extends Component {
