@@ -10,7 +10,7 @@ class TimeSelector extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(evt, data) {
-    this.setState({selectedTime: data.value})
+    this.setState({ selectedTime: data.value })
     this.props.handleTime(data.value)
   }
 

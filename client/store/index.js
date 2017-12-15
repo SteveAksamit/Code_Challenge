@@ -1,4 +1,4 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
@@ -12,12 +12,21 @@ import documents from './documents'
 import loggedInDoctor from './singleDoctor'
 import loggedInPatient from './singlePatient'
 
-const reducer = combineReducers({user, doctors, allPatients, loggedInPatient, docSinglePatAppts, docAllAppts, patAllAppts, documents, loggedInDoctor})
+const appReducer = combineReducers({ user, doctors, allPatients, loggedInPatient, docSinglePatAppts, docAllAppts, patAllAppts, documents, loggedInDoctor })
+
+const rootReducer = (state, action) => {
+  if (action.type === 'REMOVE_USER') {
+    state = undefined
+  }
+
+  return appReducer(state, action)
+}
+
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  createLogger({collapsed: true})
+  createLogger({ collapsed: true })
 ))
-const store = createStore(reducer, middleware)
+const store = createStore(rootReducer, middleware)
 
 export default store
 export * from './user'

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Appointment } = require('../db/models')
+const { Appointment, Doctor } = require('../db/models')
 module.exports = router
 
 router.get('/allPatients/:patientId', (req, res, next) => {
@@ -13,9 +13,7 @@ router.get('/allPatients/:patientId', (req, res, next) => {
 })
 
 router.post('/newAppointment', (req, res, next) => {
-  req.body.status = 'PENDING'
-  req.body.message = 'Requested by Patient'
-  let dateTime = req.body.date.slice(0,10) + ' ' + req.body.time
+  let dateTime = req.body.date.slice(0, 10) + ' ' + req.body.time
   return Appointment.create({
     date: dateTime,
     purpose: req.body.purpose,
@@ -42,6 +40,7 @@ router.put('/patient/cancel/:appointmentId', (req, res, next) => {
     })
     .then(() => Appointment.findById(id))
     .then(cancelledAppointment => {
-      res.json(cancelledAppointment)})
+      res.json(cancelledAppointment)
+    })
     .catch(next)
 })

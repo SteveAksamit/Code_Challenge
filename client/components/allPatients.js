@@ -68,7 +68,7 @@ class AllPatients extends Component {
     return (
       Object.keys(apptCache).length > 0 &&
       <div>
-        <div style={{ display: 'flex', 'justifyContent': 'space-between', 'alignItems': 'center'}}>
+        <div style={{ display: 'flex', 'justifyContent': 'space-between', 'alignItems': 'center' }}>
           <h3 style={{ 'padding': '0 0 0 1em' }}>Patients </h3>
           <Input focus placeholder='Search...' value={this.state.inputValue} onChange={this.filterChange} style={{ 'padding': '0 1em 1em 0' }} />
         </div>
@@ -96,9 +96,9 @@ class AllPatients extends Component {
                           <div>
                             <AllDocuments patientId={patient.id} />
                           </div>}
-                          {this.state.moduleShowing === 'upload' &&
-                            <UploadDocuments patientId={patient.id} toggleModules={this.toggleModules}/>
-                          }
+                        {this.state.moduleShowing === 'upload' &&
+                          <UploadDocuments patientId={patient.id} toggleModules={this.toggleModules} />
+                        }
                         {this.state.moduleShowing === 'scheduleForm' &&
                           <div>
                             <NewAppointment patientId={patient.id} toggleModules={this.toggleModules} isDoctor={isDoctor} />

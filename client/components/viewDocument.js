@@ -32,5 +32,4 @@ class ViewDocument extends Component {
   }
 }
 
-
 export default ViewDocument

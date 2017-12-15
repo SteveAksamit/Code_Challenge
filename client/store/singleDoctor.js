@@ -8,7 +8,7 @@ const GET_SINGLE_DOCTOR = 'GET_SINGLE_DOCTOR'
 const loggedInDoctor = {}
 
 /* ACTION CREATORS */
-const getSingleDoctor = foundDoctor => ({type: GET_SINGLE_DOCTOR, foundDoctor})
+const getSingleDoctor = foundDoctor => ({ type: GET_SINGLE_DOCTOR, foundDoctor })
 
 /* THUNK CREATORS */
 export const fetchSingleDoctor = (userId) =>

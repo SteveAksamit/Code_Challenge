@@ -10,7 +10,7 @@ class NewAppointment extends Component {
     super(props)
     this.state = {
       date: moment(),
-      time: '',
+      time: '08:00:00-00',
       purpose: '',
       doctor: '',
       showError: false
@@ -34,8 +34,10 @@ class NewAppointment extends Component {
     this.setState({ purpose: evt.target.value })
   }
   handleSubmit() {
-    if (!this.props.isDoctor && (this.state.doctor === '' || this.state.date === null)) { this.setState({ showError: true })
-    } else if (this.props.isDoctor && ( this.state.date === null)) { this.setState({ showError: true })
+    if (!this.props.isDoctor && (this.state.doctor === '' || this.state.date === null)) {
+      this.setState({ showError: true })
+    } else if (this.props.isDoctor && (this.state.date === null)) {
+      this.setState({ showError: true })
     } else {
       let doctorId = (this.props.isDoctor) ? this.props.loggedInDoctorId : this.state.doctor
       this.props.requestAppointment(this.state.date, this.state.time, this.state.purpose, this.props.patientId, doctorId, this.props.isDoctor)
@@ -43,7 +45,6 @@ class NewAppointment extends Component {
       this.props.toggleModules(null, 'appointments')
     }
   }
-
 
   render() {
     return (

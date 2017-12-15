@@ -37,8 +37,8 @@ router.delete('/:documentId', (req, res, next) => {
 router.post('/record', (req, res, next) => {
   console.log(req.body)
   return Document.create(req.body)
-  .then((newDocument) => res.json(newDocument))
-  .catch(next)
+    .then((newDocument) => res.json(newDocument))
+    .catch(next)
 })
 
 router.post('/upload', upload.single('file'), (req, res, next) => {

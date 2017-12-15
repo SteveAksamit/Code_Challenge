@@ -8,7 +8,7 @@ const GET_ALL_PATIENTS = 'GET_PATIENTS'
 const allPatients = []
 
 /* ACTION CREATORS */
-const getAllPatients = foundPatients => ({type: GET_ALL_PATIENTS, foundPatients})
+const getAllPatients = foundPatients => ({ type: GET_ALL_PATIENTS, foundPatients })
 
 /* THUNK CREATORS */
 export const fetchAllPatients = () =>

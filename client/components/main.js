@@ -7,7 +7,7 @@ import { Button, Segment, Header } from 'semantic-ui-react'
 
 const Main = (props) => {
   const { children, handleClick, isLoggedIn, isDoctor, user } = props
-  const view = isDoctor ? 'Doctor View - ' + user.username : 'Patient View - ' + user.username
+  const view = isDoctor ? 'Doctor View' : 'Patient View'
   return (
     <div>
         <Segment color='grey' inverted>

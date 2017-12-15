@@ -2,11 +2,11 @@ import React from 'react'
 import { Table } from 'semantic-ui-react'
 
 const SinglePatient = (props => {
-    const {patient} = props
-    let email = (Object.keys(patient).length > 0) ? patient.user.email : ''
-    return (
-      <div>
-        <Table singleLine>
+  const { patient } = props
+  let email = (Object.keys(patient).length > 0) ? patient.user.email : ''
+  return (
+    <div>
+      <Table singleLine>
         <Table.Header>
           <Table.Row textAlign='center'>
             <Table.HeaderCell>Patient Name</Table.HeaderCell>
@@ -30,8 +30,8 @@ const SinglePatient = (props => {
           </Table.Row>
         </Table.Body>
       </Table>
-      </div>
-    )
-  })
+    </div>
+  )
+})
 
 export default SinglePatient

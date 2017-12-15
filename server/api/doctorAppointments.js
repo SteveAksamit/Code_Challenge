@@ -24,8 +24,8 @@ router.get('/allPatients/:doctorId', (req, res, next) => {
 })
 
 router.post('/newAppointment', (req, res, next) => {
-  const {date, time, purpose, patientId, doctorId} = req.body
-  let dateTime = date.slice(0,10) + ' ' + time
+  const { date, time, purpose, patientId, doctorId } = req.body
+  let dateTime = date.slice(0, 10) + ' ' + time
   return Appointment.create({
     date: dateTime,
     purpose: purpose,
@@ -42,7 +42,6 @@ router.put('/:response/:appointmentId', (req, res, next) => {
   let newStatus = (req.params.response === 'true') ? 'UPCOMING' : 'DECLINED'
   let id = +req.params.appointmentId
   let message = req.body.message || 'Accepted by Doctor'
-  console.log('mesage', message)
   return Appointment.update(
     {
       status: newStatus,

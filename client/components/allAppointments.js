@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Table, Form, Button, Message, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { SingleAppointment } from '../components'
-import { fetchSinglePatApptsForDoc, fetchAllApptsForPat, docApptRequestResponse } from '../store'
+import { fetchSinglePatApptsForDoc, fetchAllApptsForPat, docApptRequestResponse, fetchDoctors } from '../store'
 
 class AllAppointments extends Component {
   constructor(props) {
@@ -47,43 +46,46 @@ class AllAppointments extends Component {
     let allAppointments = this.props.docAppointments.length > 0 ? this.props.docAppointments : this.props.patAppointments
     return (
       allAppointments.length > 0
-      ? <div>
-        <div>
-          <Table singleLine>
-            <Table.Header>
-              <Table.Row textAlign='center'>
-                <Table.HeaderCell>Appointment Status</Table.HeaderCell>
-                <Table.HeaderCell>Appointment Purpose</Table.HeaderCell>
-                <Table.HeaderCell>Date</Table.HeaderCell>
-                <Table.HeaderCell>Time</Table.HeaderCell>
-                <Table.HeaderCell>Notes</Table.HeaderCell>
-                <Table.HeaderCell>Action</Table.HeaderCell>
-              </Table.Row>
-            </Table.Header>
-            <Table.Body>
-              {allAppointments.map(appointment => {
-                return (
-                  <SingleAppointment appointment={appointment} key={appointment.id} showDeclineReason={this.showDeclineReason} cancel={this.cancel}/>
-                )
-              })}
-            </Table.Body>
-          </Table>
-        </div>
-        {this.state.showDeclineReason &&
+        ? <div>
           <div>
-            <Message info>
-              <Message.Header>Please enter reason for declining:</Message.Header>
-              <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-                <Form.Field>
-                  <Input size='large' placeholder='Reason for declining' value={this.state.reason} />
-                  <Button type='submit' >Submit</Button>
-                </Form.Field>
-              </Form>
-            </Message>
+            <Table singleLine>
+              <Table.Header>
+                <Table.Row textAlign='center'>
+                  <Table.HeaderCell>Appointment Status</Table.HeaderCell>
+                  { !this.props.isDoctor &&
+                  <Table.HeaderCell>Doctor</Table.HeaderCell>
+                  }
+                  <Table.HeaderCell>Appointment Purpose</Table.HeaderCell>
+                  <Table.HeaderCell>Date</Table.HeaderCell>
+                  <Table.HeaderCell>Time</Table.HeaderCell>
+                  <Table.HeaderCell>Notes</Table.HeaderCell>
+                  <Table.HeaderCell>Action</Table.HeaderCell>
+                </Table.Row>
+              </Table.Header>
+              <Table.Body>
+                {allAppointments.map(appointment => {
+                  return (
+                    <SingleAppointment appointment={appointment} key={appointment.id} showDeclineReason={this.showDeclineReason} cancel={this.cancel} doctors={this.props.doctors} />
+                  )
+                })}
+              </Table.Body>
+            </Table>
           </div>
-        }
-      </div>
-      : <div><h3>No Appointments to Display</h3></div>
+          {this.state.showDeclineReason &&
+            <div>
+              <Message info>
+                <Message.Header>Please enter reason for declining:</Message.Header>
+                <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+                  <Form.Field>
+                    <Input size='large' placeholder='Reason for declining' value={this.state.reason} />
+                    <Button type='submit' >Submit</Button>
+                  </Form.Field>
+                </Form>
+              </Message>
+            </div>
+          }
+        </div>
+        : <div><h3>No Appointments to Display</h3></div>
     )
   }
 }
@@ -93,15 +95,20 @@ const mapState = (state) => {
     allPatients: state.allPatients,
     docAppointments: state.docSinglePatAppts,
     patAppointments: state.patAllAppts,
-    isDoctor: state.user.isDoctor
+    isDoctor: state.user.isDoctor,
+    doctors: state.doctors
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData(doctorId, patientId, isDoctor) {
-      if (isDoctor) dispatch(fetchSinglePatApptsForDoc(doctorId, patientId))
-      else dispatch(fetchAllApptsForPat(patientId))
+      if (isDoctor) {
+        dispatch(fetchSinglePatApptsForDoc(doctorId, patientId))
+      } else {
+        dispatch(fetchAllApptsForPat(patientId))
+        dispatch(fetchDoctors())
+      }
     },
     respondToRequest(response, appointmentId, message) {
       dispatch(docApptRequestResponse(response, appointmentId, message))

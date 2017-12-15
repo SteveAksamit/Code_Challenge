@@ -5,7 +5,7 @@ import { SinglePatient, AllDocuments, UploadDocuments, NewAppointment, AllAppoin
 import { fetchSinglePatient } from '../store'
 
 class PatientView extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       scheduleForm: false,
@@ -32,29 +32,29 @@ class PatientView extends Component {
     return (
       Object.keys(patient).length > 0 &&
       <div>
-      <SinglePatient patient={patient} />
-      <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='appointments' >View Appointments</Button>
-      <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='documents' >Manage Documents</Button>
-      <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='upload' >Upload Documents</Button>
-      <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='scheduleForm' >Schedule New Appointment</Button>
-      {this.state.moduleShowing === 'documents' &&
-        <div>
-          <AllDocuments patientId={patient.id} />
-        </div>}
+        <SinglePatient patient={patient} />
+        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='appointments' >View Appointments</Button>
+        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='documents' >Manage Documents</Button>
+        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='upload' >Upload Documents</Button>
+        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='scheduleForm' >Schedule New Appointment</Button>
+        {this.state.moduleShowing === 'documents' &&
+          <div>
+            <AllDocuments patientId={patient.id} />
+          </div>}
         {this.state.moduleShowing === 'upload' &&
-          <UploadDocuments patientId={patient.id} toggleModules={this.toggleModules}/>
+          <UploadDocuments patientId={patient.id} toggleModules={this.toggleModules} />
         }
-      {this.state.moduleShowing === 'scheduleForm' &&
-        <div>
-          <NewAppointment patientId={patient.id} toggleModules={this.toggleModules} isDoctor={isDoctor} />
-        </div>
-      }
-      {this.state.moduleShowing === 'appointments' &&
-        <AllAppointments
-          patientId={patient.id}
-          doctorId={user.id}
+        {this.state.moduleShowing === 'scheduleForm' &&
+          <div>
+            <NewAppointment patientId={patient.id} toggleModules={this.toggleModules} isDoctor={isDoctor} />
+          </div>
+        }
+        {this.state.moduleShowing === 'appointments' &&
+          <AllAppointments
+            patientId={patient.id}
+            doctorId={user.id}
           />}
-    </div>
+      </div>
     )
   }
 }

@@ -25,7 +25,7 @@ export const fetchSinglePatApptsForDoc = (doctorId, patientId) =>
 
 export const postNewApptFromDoc = (date, time, purpose, patientId, doctorId) =>
   dispatch =>
-    axios.post('/api/doctorAppointments/newAppointment', {date, time, purpose, patientId, doctorId})
+    axios.post('/api/doctorAppointments/newAppointment', { date, time, purpose, patientId, doctorId })
       .then(res =>
         dispatch(newApptFromDoc(res.data))
       )
@@ -33,7 +33,7 @@ export const postNewApptFromDoc = (date, time, purpose, patientId, doctorId) =>
 
 export const docApptRequestResponse = (response, appointmentId, message) =>
   dispatch =>
-    axios.put(`/api/doctorAppointments/${response}/${appointmentId}`, {message})
+    axios.put(`/api/doctorAppointments/${response}/${appointmentId}`, { message })
       .then(res =>
         dispatch(doctorReponse(res.data))
       )

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { fetchDocuments, removeDocument } from '../store'
 import { Table, Button } from 'semantic-ui-react'
 import { SingleDocument, ViewDocument } from '../components'
-import PropTypes from 'prop-types'
 
 class AllDocuments extends Component {
   constructor(props) {

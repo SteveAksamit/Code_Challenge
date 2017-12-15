@@ -31,7 +31,7 @@ export const removeDocument = (documentId) =>
       )
       .catch(err => console.log(err))
 
-export const uploadDocument = ({file, name, patientId, title}) => {
+export const uploadDocument = ({ file, name, patientId, title }) => {
   let data = new FormData();
   data.append('file', file);
   data.append('name', name);
@@ -39,7 +39,7 @@ export const uploadDocument = ({file, name, patientId, title}) => {
     axios.post('/api/documents/upload/', data)
       .then(res => {
         let fileName = res.data
-        return axios.post('/api/documents/record', {fileName, patientId, title})
+        return axios.post('/api/documents/record', { fileName, patientId, title })
       })
       .then(res =>
         dispatch(uploadDocuments(res.data))

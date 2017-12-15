@@ -11,19 +11,19 @@ class DoctorSelector extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.loadInitialData()
   }
   handleChange(evt, data) {
-    this.setState({selectedDoctor: data.value})
+    this.setState({ selectedDoctor: data.value })
     this.props.handleDoctor(data.value)
   }
 
   render() {
     const options = []
     const doctors = this.props.doctors
-    doctors.forEach(singleDoctor =>{
-      options.push({text: singleDoctor.name, value: singleDoctor.id})
+    doctors.forEach(singleDoctor => {
+      options.push({ text: singleDoctor.name, value: singleDoctor.id })
     })
 
     return (

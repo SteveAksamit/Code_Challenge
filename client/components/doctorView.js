@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { AllPatients } from '../components'
 import { fetchSingleDoctor } from '../store'
 
 class DoctorView extends Component {
-  constructor(props){
-    super(props)
-
-  }
 
   componentDidMount() {
     const { user } = this.props

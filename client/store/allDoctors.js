@@ -8,7 +8,7 @@ const GET_DOCTORS = 'GET_DOCTORS'
 const doctors = []
 
 /* ACTION CREATORS */
-const getDoctors = foundDoctors => ({type: GET_DOCTORS, foundDoctors})
+const getDoctors = foundDoctors => ({ type: GET_DOCTORS, foundDoctors })
 
 /* THUNK CREATORS */
 export const fetchDoctors = () =>

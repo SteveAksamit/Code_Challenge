@@ -25,7 +25,7 @@ export const fetchAllApptsForPat = (patientId) =>
 
 export const postNewApptFromPat = (date, time, purpose, patientId, doctorId) =>
   dispatch =>
-    axios.post('/api/patientAppointments/newAppointment', {date, time, purpose, patientId, doctorId})
+    axios.post('/api/patientAppointments/newAppointment', { date, time, purpose, patientId, doctorId })
       .then(res =>
         dispatch(newApptFromPat(res.data))
       )
@@ -34,7 +34,7 @@ export const postNewApptFromPat = (date, time, purpose, patientId, doctorId) =>
 export const cancelAppointment = (appointmentId) =>
   dispatch =>
     axios.put(`/api/patientAppointments/patient/cancel/${appointmentId}`)
-      .then(res =>{
+      .then(res => {
         dispatch(appointmentCancellation(res.data))
       })
       .catch(err => console.log(err))
