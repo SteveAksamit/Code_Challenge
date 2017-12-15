@@ -2,6 +2,10 @@
   "name": "code_challenge",
   "version": "1.0.0",
   "description": "Steve Aksamit Code Challenge Submission",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SteveAksamit/Code_Challenge"
+  },
   "engines": {
     "node": ">= 7.0.0"
   },
