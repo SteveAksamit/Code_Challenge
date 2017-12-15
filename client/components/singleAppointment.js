@@ -21,7 +21,7 @@ const SingleAppointment = (props => {
       clock = 'PM'
     }
     let button
-    if (!isDoctor && appointment.status === 'UPCOMING' ) {
+    if (!isDoctor && appointment.status === 'UPCOMING' || appointment.status === 'PENDING' ) {
       button = <Button onClick={cancelAppt} value={appointment.id}>Cancel</Button>
     }
     if (isDoctor && appointment.status === 'PENDING' ) {

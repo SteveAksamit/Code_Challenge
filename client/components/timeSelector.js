@@ -5,7 +5,7 @@ class TimeSelector extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedTime: ''
+      selectedTime: '08:00:00-00'
     }
     this.handleChange = this.handleChange.bind(this);
   }

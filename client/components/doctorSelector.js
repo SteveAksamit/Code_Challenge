@@ -16,7 +16,6 @@ class DoctorSelector extends Component {
   }
   handleChange(evt, data) {
     this.setState({selectedDoctor: data.value})
-    console.log(data.value)
     this.props.handleDoctor(data.value)
   }
 
@@ -28,7 +27,7 @@ class DoctorSelector extends Component {
     })
 
     return (
-      <Dropdown placeholder='Select Doctor...' fluid selection options={options} onChange={this.handleChange} value={this.state.selectedDoctor} />
+      <Dropdown placeholder='Select Doctor...' fluid search selection options={options} onChange={this.handleChange} value={this.state.selectedDoctor} />
     )
   }
 }

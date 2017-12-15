@@ -20,7 +20,7 @@ class DateSelector extends React.Component {
 
   render() {
     const excludeDates = []
-    for(let i = 1; i < 90; i++){
+    for (let i = 1; i < 90; i++){
       excludeDates.push(moment().subtract(i, "days"))
     }
     return <DatePicker

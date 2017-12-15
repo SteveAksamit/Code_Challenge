@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Document, Page } from 'react-pdf/build/entry.noworker';
-import PropTypes from 'prop-types'
 
 class ViewDocument extends Component {
   constructor() {
