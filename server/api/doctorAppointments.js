@@ -25,9 +25,7 @@ router.get('/allPatients/:doctorId', (req, res, next) => {
 
 router.post('/newAppointment', (req, res, next) => {
   const {date, time, purpose, patientId, doctorId} = req.body
-
   let dateTime = date.slice(0,10) + ' ' + time
-  console.log(date, time, dateTime, purpose, patientId, doctorId)
   return Appointment.create({
     date: dateTime,
     purpose: purpose,

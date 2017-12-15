@@ -30,7 +30,7 @@ class AllDocuments extends Component {
   }
 
   render() {
-    const { documents, deleteDocument, patientId } = this.props
+    const { documents, deleteDocument, isDoctor } = this.props
     let documentRender = this.state.documentRender
     return (
       documents.length > 0
@@ -56,7 +56,7 @@ class AllDocuments extends Component {
             <Table.Body>
               {documents.map(singleDocument => {
                 return (
-                  <SingleDocument singleDocument={singleDocument} key={singleDocument.id} deleteDocument={deleteDocument} viewDocument={this.viewDocument} closeDocument={this.closeDocument} />
+                  <SingleDocument singleDocument={singleDocument} key={singleDocument.id} deleteDocument={deleteDocument} viewDocument={this.viewDocument} closeDocument={this.closeDocument} isDoctor={isDoctor} />
                 )
               })
               }
@@ -71,6 +71,7 @@ class AllDocuments extends Component {
 const mapState = (state) => {
   return {
     documents: state.documents,
+    isDoctor: state.user.isDoctor
   }
 }
 

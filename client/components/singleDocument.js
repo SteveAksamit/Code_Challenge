@@ -14,7 +14,8 @@ const SingleDocument = (props => {
         <Table.Cell>{month + '-' + day + '-' + year}</Table.Cell>
         <Table.Cell>
           <Button onClick={viewDocument} value={singleDocument.fileName} size="tiny" >View</Button>
-          <Button onClick={deleteDocument} value={singleDocument.id} size="tiny" >Delete</Button></Table.Cell>
+          {props.isDoctor &&
+            <Button onClick={deleteDocument} value={singleDocument.id} size="tiny" >Delete</Button>}</Table.Cell>
       </Table.Row>
   )
 })

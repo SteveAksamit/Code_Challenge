@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Accordion, Icon, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SinglePatient, AllAppointments, AllDocuments, UploadDocuments, DocNewAppt } from '../components'
+import { SinglePatient, AllAppointments, AllDocuments, UploadDocuments, NewAppointment } from '../components'
 import { fetchAllPatients, fetchAllApptsForDoc } from '../store'
 
 class AllPatients extends Component {
@@ -10,7 +10,6 @@ class AllPatients extends Component {
     this.state = {
       activeIndex: -1,
       inputValue: '',
-      isDirty: false,
       scheduleForm: false,
       moduleShowing: 'appointments'
     }
@@ -50,7 +49,7 @@ class AllPatients extends Component {
         return patient
       }
     });
-    const { user, docAllAppts } = this.props
+    const { user, docAllAppts, isDoctor } = this.props
     const { activeIndex } = this.state
     const apptCache = {}
     docAllAppts.forEach(appt => {
@@ -102,7 +101,7 @@ class AllPatients extends Component {
                           }
                         {this.state.moduleShowing === 'scheduleForm' &&
                           <div>
-                            <DocNewAppt patientId={patient.id} toggleModules={this.toggleModules}/>
+                            <NewAppointment patientId={patient.id} toggleModules={this.toggleModules} isDoctor={isDoctor} />
                           </div>
                         }
                         {this.state.moduleShowing === 'appointments' &&
@@ -128,7 +127,8 @@ const mapState = (state) => {
   return {
     allPatients: state.allPatients,
     user: state.user,
-    docAllAppts: state.docAllAppts
+    docAllAppts: state.docAllAppts,
+    isDoctor: state.user.isDoctor
   }
 }
 

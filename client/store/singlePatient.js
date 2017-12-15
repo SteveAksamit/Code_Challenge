@@ -5,22 +5,22 @@ import history from '../history'
 const GET_SINGLE_PATIENT = 'GET_SINGLE_PATIENT'
 
 /* INITIAL STATE */
-const singlePatient = {}
+const loggedInPatient = {}
 
 /* ACTION CREATORS */
 const getSinglePatient = foundPatient => ({type: GET_SINGLE_PATIENT, foundPatient})
 
 /* THUNK CREATORS */
-export const fetchSinglePatient = (patientId) =>
+export const fetchSinglePatient = (userId) =>
   dispatch =>
-    axios.get(`/api/patients/singlePatient/${patientId}`)
+    axios.get(`/api/patients/singlePatient/${userId}`)
       .then(res =>
         dispatch(getSinglePatient(res.data))
       )
       .catch(err => console.log(err))
 
 /* REDUCER */
-export default function (state = singlePatient, action) {
+export default function (state = loggedInPatient, action) {
   switch (action.type) {
     case GET_SINGLE_PATIENT:
       return action.foundPatient

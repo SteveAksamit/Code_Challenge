@@ -54,7 +54,7 @@ const SingleAppointment = (props => {
   const mapDispatch = (dispatch) => {
     return {
       cancelAppt(evt){
-       dispatch(cancelAppointment(+evt.target.name))
+       dispatch(cancelAppointment(+evt.target.value))
       }
     }
   }

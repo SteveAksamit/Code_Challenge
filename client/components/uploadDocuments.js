@@ -38,7 +38,7 @@ class UploadDocuments extends React.Component {
       <Table singleLine columns="three">
       <Table.Header>
         <Table.Row textAlign="center">
-          <Table.HeaderCell>Select Document to Upload</Table.HeaderCell>
+          <Table.HeaderCell>Select PDF Document to Upload</Table.HeaderCell>
           <Table.HeaderCell>Document Title</Table.HeaderCell>
           <Table.HeaderCell>Action</Table.HeaderCell>
         </Table.Row>

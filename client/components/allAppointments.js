@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Table, Form, Button, Message, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { SingleAppointment } from '../components'
-import { fetchSinglePatApptsForDoc, docApptRequestResponse } from '../store'
+import { fetchSinglePatApptsForDoc, fetchAllApptsForPat, docApptRequestResponse } from '../store'
 
 class AllAppointments extends Component {
   constructor(props) {
@@ -18,8 +18,8 @@ class AllAppointments extends Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
-    const { doctorId, patientId } = this.props
-    this.props.loadInitialData(doctorId, patientId)
+    const { doctorId, patientId, isDoctor } = this.props
+    this.props.loadInitialData(doctorId, patientId, isDoctor)
   }
 
   showDeclineReason(response, appointmentId) {
@@ -44,7 +44,7 @@ class AllAppointments extends Component {
   }
 
   render() {
-    let allAppointments = this.props.appointments.length > 0 ? this.props.appointments : []
+    let allAppointments = this.props.docAppointments.length > 0 ? this.props.docAppointments : this.props.patAppointments
     return (
       allAppointments.length > 0
       ? <div>
@@ -63,7 +63,7 @@ class AllAppointments extends Component {
             <Table.Body>
               {allAppointments.map(appointment => {
                 return (
-                  <SingleAppointment appointment={appointment} key={appointment.id} showDeclineReason={this.showDeclineReason} />
+                  <SingleAppointment appointment={appointment} key={appointment.id} showDeclineReason={this.showDeclineReason} cancel={this.cancel}/>
                 )
               })}
             </Table.Body>
@@ -91,14 +91,17 @@ class AllAppointments extends Component {
 const mapState = (state) => {
   return {
     allPatients: state.allPatients,
-    appointments: state.docSinglePatAppts
+    docAppointments: state.docSinglePatAppts,
+    patAppointments: state.patAllAppts,
+    isDoctor: state.user.isDoctor
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData(doctorId, patientId) {
-      dispatch(fetchSinglePatApptsForDoc(doctorId, patientId))
+    loadInitialData(doctorId, patientId, isDoctor) {
+      if (isDoctor) dispatch(fetchSinglePatApptsForDoc(doctorId, patientId))
+      else dispatch(fetchAllApptsForPat(patientId))
     },
     respondToRequest(response, appointmentId, message) {
       dispatch(docApptRequestResponse(response, appointmentId, message))

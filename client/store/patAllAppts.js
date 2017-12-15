@@ -23,9 +23,9 @@ export const fetchAllApptsForPat = (patientId) =>
       )
       .catch(err => console.log(err))
 
-export const postNewApptFromPat = () =>
+export const postNewApptFromPat = (date, time, purpose, patientId, doctorId) =>
   dispatch =>
-    axios.post('/api/patientAppointments/newAppointment')
+    axios.post('/api/patientAppointments/newAppointment', {date, time, purpose, patientId, doctorId})
       .then(res =>
         dispatch(newApptFromPat(res.data))
       )
@@ -33,10 +33,10 @@ export const postNewApptFromPat = () =>
 
 export const cancelAppointment = (appointmentId) =>
   dispatch =>
-    axios.delete(`/api/patientAppointments/patient/cancel/${appointmentId}`)
-      .then(res =>
+    axios.put(`/api/patientAppointments/patient/cancel/${appointmentId}`)
+      .then(res =>{
         dispatch(appointmentCancellation(res.data))
-      )
+      })
       .catch(err => console.log(err))
 
 /* REDUCER */
@@ -49,10 +49,11 @@ export default function (state = patAllAppts, action) {
       return [...state, action.newPatAppt]
     case CANCEL_APPT:
       state.forEach((appt, i) => {
-        if (appt.id == action.updatedAppt) index = i
+        if (appt.id == action.cancelledAppt.id) index = i
       })
       return [
         ...state.slice(0, index),
+        action.cancelledAppt,
         ...state.slice(index + 1)
       ]
     default:

@@ -1,28 +1,32 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { postNewApptFromDoc } from '../store'
+import { postNewApptFromDoc, postNewApptFromPat } from '../store'
 import { Input, Table, Button } from 'semantic-ui-react'
-import { DateSelector, TimeSelector } from '../components'
+import { DateSelector, TimeSelector, DoctorSelector } from '../components'
 import moment from 'moment';
 
-
-class DocNewAppt extends Component {
+class NewAppointment extends Component {
   constructor(props) {
     super(props)
     this.state = {
       date: moment(),
       time: '',
-      purpose: ''
+      purpose: '',
+      doctor: 0
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleDate = this.handleDate.bind(this)
     this.handleTime = this.handleTime.bind(this)
     this.handlePurpose = this.handlePurpose.bind(this)
+    this.handleDoctor = this.handleDoctor.bind(this)
   }
 
   handleDate(date){
     this.setState({date: date})
+  }
+
+  handleDoctor(doctor){
+    this.setState({doctor: doctor})
   }
 
   handleTime(time){
@@ -34,7 +38,8 @@ class DocNewAppt extends Component {
   }
 
   handleSubmit(){
-    this.props.requestAppointment(this.state.date, this.state.time, this.state.purpose, this.props.patientId, this.props.loggedInDoctorId)
+    let doctorId = (this.props.isDoctor) ? this.props.loggedInDoctorId : this.state.doctor
+    this.props.requestAppointment(this.state.date, this.state.time, this.state.purpose, this.props.patientId, doctorId, this.props.isDoctor)
     this.setState({date: moment(), time: '', purpose: ''})
     this.props.toggleModules(null, 'appointments')
   }
@@ -48,6 +53,8 @@ class DocNewAppt extends Component {
           <Table.HeaderCell>Appointment Date</Table.HeaderCell>
           <Table.HeaderCell>Appointment Time</Table.HeaderCell>
           <Table.HeaderCell>Appointment Purpose</Table.HeaderCell>
+          {!this.props.isDoctor &&<Table.HeaderCell>Doctor</Table.HeaderCell>
+          }
           <Table.HeaderCell>Action</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -57,6 +64,8 @@ class DocNewAppt extends Component {
           <Table.Cell><DateSelector handleDate={this.handleDate} /></Table.Cell>
           <Table.Cell><TimeSelector handleTime={this.handleTime} /></Table.Cell>
           <Table.Cell><Input fluid placeholder="Purpose..." onChange={this.handlePurpose} value={this.state.purpose} /></Table.Cell>
+          {!this.props.isDoctor &&
+            <Table.Cell><DoctorSelector handleDoctor={this.handleDoctor} /></Table.Cell>}
           <Table.Cell textAlign="center"><Button onClick={this.handleSubmit}>Submit</Button></Table.Cell>
         </Table.Row>
       </Table.Body>
@@ -75,10 +84,11 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    requestAppointment(date, time, purpose, patientId, doctorId) {
-      dispatch(postNewApptFromDoc(date, time, purpose, patientId, doctorId))
+    requestAppointment(date, time, purpose, patientId, doctorId, isDoctor) {
+      if (isDoctor) dispatch(postNewApptFromDoc(date, time, purpose, patientId, doctorId))
+      else dispatch(postNewApptFromPat(date, time, purpose, patientId, doctorId))
     }
   }
 }
 
-export default connect(mapState, mapDispatch)(DocNewAppt)
+export default connect(mapState, mapDispatch)(NewAppointment)

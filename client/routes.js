@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, AllPatients, SinglePatient, DocNewAppt, PatNewAppt, DoctorView} from './components'
+import {Main, Login, PatientView, DoctorView} from './components'
 import {me} from './store'
 
 /**
@@ -26,16 +26,14 @@ class Routes extends Component {
               isLoggedIn && isDoctor &&
                 <Switch>
                   <Route exact path="/" component={DoctorView} />
-                  <Route path="/DoctorView" component={DoctorView} />
-                  <Route path="/docNewAppt" component={DocNewAppt} />
-                  <Route path="/patient/:patientId" component={SinglePatient} />
+                  <Route path="/home" component={DoctorView} />
                 </Switch>
             }
             {
               isLoggedIn && !isDoctor &&
                 <Switch>
-                  <Route path="/singlePatient" component={SinglePatient} />
-                  <Route path="/patNewAppt" component={PatNewAppt} />
+                  <Route exact path="/" component={PatientView} />
+                  <Route path="/home" component={PatientView} />
                 </Switch>
             }
             <Route component={Login} />
