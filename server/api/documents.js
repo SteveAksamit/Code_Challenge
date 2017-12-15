@@ -3,12 +3,14 @@ const { Document } = require('../db/models')
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer')
+let newFileName;
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname + '/../../public/files'))
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now().toString().slice(-5) + '-' + file.originalname)
+    newFileName = Date.now().toString().slice(-5) + '-' + file.originalname
+    cb(null, newFileName)
   }
 })
 const upload = multer({ storage: storage })
@@ -42,5 +44,6 @@ router.post('/record', (req, res, next) => {
 })
 
 router.post('/upload', upload.single('file'), (req, res, next) => {
-  res.json(req.file.originalname)
+  console.log(newFileName)
+  res.json(newFileName)
 });
