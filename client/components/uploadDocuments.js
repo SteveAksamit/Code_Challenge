@@ -23,7 +23,8 @@ class UploadDocuments extends React.Component {
       title: this.state.title
     }
     this.props.sendDocument(fileObj)
-    this.setState({file: null, title: null})
+    this.setState({file: null})
+    this.props.toggleModules(null, 'documents')
   }
   onChangeFile(evt) {
     this.setState({file: evt.target.files[0]})

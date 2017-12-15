@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Accordion, Icon, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SinglePatient, AllAppointments, Documents, UploadDocuments } from '../components'
+import { SinglePatient, AllAppointments, AllDocuments, UploadDocuments, DocNewAppt } from '../components'
 import { fetchAllPatients, fetchAllApptsForDoc } from '../store'
 
 class AllPatients extends Component {
@@ -12,11 +12,10 @@ class AllPatients extends Component {
       inputValue: '',
       isDirty: false,
       scheduleForm: false,
-      moduleShowing: null
+      moduleShowing: 'appointments'
     }
     this.handleClick = this.handleClick.bind(this)
     this.filterChange = this.filterChange.bind(this)
-    this.toggle = this.toggle.bind(this)
     this.toggleModules = this.toggleModules.bind(this)
   }
   componentDidMount() {
@@ -30,24 +29,18 @@ class AllPatients extends Component {
     });
   }
 
-  toggle(evt, name) {
-    let element = (typeof (name) === 'string') ? name : evt.target.value
-    let currentView = this.state[element]
-    if (currentView) this.setState({ [element]: false })
-    if (!currentView) this.setState({ [element]: true })
-  }
   toggleModules(evt, name) {
-    let newView = evt.target.value
+    let newView = (evt) ? evt.target.value : name
     let current = this.state.moduleShowing
-    if (newView === current ) this.setState({moduleShowing: null})
-    else this.setState({moduleShowing: newView})
+    if (newView === current) this.setState({ moduleShowing: null })
+    else this.setState({ moduleShowing: newView })
   }
 
   handleClick(evt, titleProps) {
     const { index } = titleProps
     const { activeIndex } = this.state
     const newIndex = activeIndex === index ? -1 : index
-    this.setState({ activeIndex: newIndex })
+    this.setState({ activeIndex: newIndex, moduleShowing: 'appointments' })
   }
 
   render() {
@@ -88,26 +81,34 @@ class AllPatients extends Component {
               let past = (apptCache.hasOwnProperty(patient.id)) && apptCache[patient.id].PAST > 0 ? ' /  Past: ' + apptCache[patient.id].PAST : ''
               return (
                 <div key={patient.id}>
-                  <Accordion.Title active={activeIndex === i} index={i} onClick={this.handleClick} color='blue'>
+                  <Accordion.Title active={activeIndex === i} index={i} onClick={this.handleClick} >
                     <Icon name='dropdown' />
-                    {patient.fullName + upcoming + pending + past}
+                    {patient.lastName + ', ' + patient.firstName + '' + upcoming + pending + past}
                   </Accordion.Title>
                   <Accordion.Content active={activeIndex === i}>
                     {activeIndex === i &&
                       <div>
                         <SinglePatient patient={patient} />
-                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 2em 1em 0' }} value='documents'>Documents</Button>
-                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='appointments'>Appointments</Button>
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='appointments' >View Appointments</Button>
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='documents' >Manage Documents</Button>
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='upload' >Upload Documents</Button>
+                        <Button onClick={this.toggleModules} style={{ 'margin': '1em 1em 1em 0' }} value='scheduleForm' >Schedule New Appointment</Button>
                         {this.state.moduleShowing === 'documents' &&
                           <div>
-                            <UploadDocuments patientId={patient.id} />
-                            <Documents patientId={patient.id} />
+                            <AllDocuments patientId={patient.id} />
                           </div>}
+                          {this.state.moduleShowing === 'upload' &&
+                            <UploadDocuments patientId={patient.id} toggleModules={this.toggleModules}/>
+                          }
+                        {this.state.moduleShowing === 'scheduleForm' &&
+                          <div>
+                            <DocNewAppt patientId={patient.id} toggleModules={this.toggleModules}/>
+                          </div>
+                        }
                         {this.state.moduleShowing === 'appointments' &&
                           <AllAppointments
                             patientId={patient.id}
                             doctorId={user.id}
-                            toggle={this.toggle}
                             scheduleForm={this.state.scheduleForm}
                             activeIndex={activeIndex} i={i} />}
                       </div>

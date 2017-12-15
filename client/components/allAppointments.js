@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Table, Form, Button, Message, Input } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { SingleAppointment, DocNewAppt } from '../components'
+import { SingleAppointment } from '../components'
 import { fetchSinglePatApptsForDoc, docApptRequestResponse } from '../store'
 
 class AllAppointments extends Component {
@@ -46,14 +46,8 @@ class AllAppointments extends Component {
   render() {
     let allAppointments = this.props.appointments.length > 0 ? this.props.appointments : []
     return (
-      allAppointments.length > 0 &&
-      <div>
-      <Button onClick={this.props.toggle} style={{ 'marginBottom': '1em' }} value='scheduleForm'>Schedule New Appointment</Button>
-      {this.props.scheduleForm && this.props.activeIndex === this.props.i &&
-        <div>
-          <DocNewAppt patientId={this.props.patientId} toggle={this.props.toggle} />
-        </div>
-      }
+      allAppointments.length > 0
+      ? <div>
         <div>
           <Table singleLine>
             <Table.Header>
@@ -89,6 +83,7 @@ class AllAppointments extends Component {
           </div>
         }
       </div>
+      : <div><h3>No Appointments to Display</h3></div>
     )
   }
 }

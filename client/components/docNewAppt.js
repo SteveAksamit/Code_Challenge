@@ -36,7 +36,7 @@ class DocNewAppt extends Component {
   handleSubmit(){
     this.props.requestAppointment(this.state.date, this.state.time, this.state.purpose, this.props.patientId, this.props.loggedInDoctorId)
     this.setState({date: moment(), time: '', purpose: ''})
-    this.props.toggle(null, 'scheduleForm')
+    this.props.toggleModules(null, 'appointments')
   }
 
   render(){
