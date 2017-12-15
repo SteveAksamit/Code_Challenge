@@ -33,7 +33,8 @@ export const auth = (username, password, method) =>
     axios.post(`/auth/${method}`, { username, password })
       .then(res => {
         dispatch(getUser(res.data))
-        history.push('/home')
+        if (res.data.isDoctor) history.push('/doctor')
+        else history.push('/patient')
       })
       .catch(error =>
         dispatch(getUser({error})))
