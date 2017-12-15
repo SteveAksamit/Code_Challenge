@@ -28,9 +28,9 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser)))
       .catch(err => console.log(err))
 
-export const auth = (username, password, method) =>
+export const auth = (username, password) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { username, password })
+    axios.post(`/auth/login`, { username, password })
       .then(res => {
         dispatch(getUser(res.data))
         if (res.data.isDoctor) history.push('/doctor')
