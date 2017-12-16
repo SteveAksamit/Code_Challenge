@@ -22,6 +22,8 @@ const SingleAppointment = (props => {
   if (hh > 12) {
     hh -= 12
     clock = 'PM'
+  } else if (hh === 12){
+    clock = 'PM'
   }
   let button
   if (!isDoctor && appointment.status === 'UPCOMING' || appointment.status === 'PENDING') {

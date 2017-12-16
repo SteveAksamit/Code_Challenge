@@ -17,7 +17,10 @@ router.get('/allPatients/:doctorId', (req, res, next) => {
   return Appointment.findAll({
     where: {
       doctorId: req.params.doctorId
-    }
+    },
+    order: [
+      ['date', 'ASC']
+    ]
   })
     .then(appointments => res.json(appointments))
     .catch(next)

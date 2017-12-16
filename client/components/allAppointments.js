@@ -45,9 +45,23 @@ class AllAppointments extends Component {
   render() {
     let allAppointments = this.props.docAppointments.length > 0 ? this.props.docAppointments : this.props.patAppointments
     return (
-      allAppointments.length > 0
-        ? <div>
-          <div>
+      <div>
+        <div>
+          {this.state.showDeclineReason &&
+          <Message info>
+            <Message.Header>Please enter reason for declining:</Message.Header>
+            <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
+              <Form.Field>
+                <Input size='large' placeholder='Reason for declining' value={this.state.reason} />
+                <Button type='submit' >Submit</Button>
+              </Form.Field>
+            </Form>
+          </Message>
+          }
+        </div>
+        <div>
+        { allAppointments.length > 0
+          ? <div>
             <Table singleLine>
               <Table.Header>
                 <Table.Row textAlign='center'>
@@ -71,21 +85,10 @@ class AllAppointments extends Component {
               </Table.Body>
             </Table>
           </div>
-          {this.state.showDeclineReason &&
-            <div>
-              <Message info>
-                <Message.Header>Please enter reason for declining:</Message.Header>
-                <Form onSubmit={this.handleSubmit} onChange={this.handleChange}>
-                  <Form.Field>
-                    <Input size='large' placeholder='Reason for declining' value={this.state.reason} />
-                    <Button type='submit' >Submit</Button>
-                  </Form.Field>
-                </Form>
-              </Message>
-            </div>
-          }
-        </div>
         : <div><h3>No Appointments to Display</h3></div>
+      }
+      </div>
+      </div>
     )
   }
 }

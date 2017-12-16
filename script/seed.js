@@ -51,8 +51,8 @@ async function seed () {
     Document.create({title: 'Patient File 6', fileName: 'file6.pdf', patientId: 3, dateAdded: '2017-12-12'}),
     Document.create({title: 'Patient File 7', fileName: 'file7.pdf', patientId: 3, dateAdded: '2017-12-12'}),
     Document.create({title: 'Patient File 8', fileName: 'file8.pdf', patientId: 4, dateAdded: '2017-12-12'}),
-    Document.create({title: 'Patient File 9', fileName: 'file9.pdf', patientId: 5, dateAdded: '2017-12-12'}),
-    Document.create({title: 'Patient File 10', fileName: 'file10.pdf', patientId: 5, dateAdded: '2017-12-12'})
+    Document.create({title: 'Patient File 9', fileName: 'file9.pdf', patientId: 9, dateAdded: '2017-12-12'}),
+    Document.create({title: 'Patient File 10', fileName: 'file10.pdf', patientId: 9, dateAdded: '2017-12-12'})
   ])
 
   const appointments = await Promise.all([
@@ -60,10 +60,10 @@ async function seed () {
     Appointment.create({date: '2017-11-30 03:30:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 2}),
     Appointment.create({date: '2017-11-30 04:00:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 5}),
     Appointment.create({date: '2018-01-07 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 3}),
-    Appointment.create({date: '2017-11-30 06:30:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 9}),
+    Appointment.create({date: '2017-11-30 05:30:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 9}),
     Appointment.create({date: '2018-01-15 07:00:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 1}),
     Appointment.create({date: '2018-01-16 07:00:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 2, patientId: 2}),
-    Appointment.create({date: '2018-01-17 06:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 2, patientId: 5}),
+    Appointment.create({date: '2018-01-17 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 2, patientId: 5}),
     Appointment.create({date: '2018-01-18 08:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 3, patientId: 6}),
     Appointment.create({date: '2018-01-19 10:30:00.000-06', purpose: 'Check-up', status: 'PENDING', doctorId: 1, patientId: 1}),
     Appointment.create({date: '2018-01-20 10:30:00.000-06', purpose: 'Check-up', status: 'PENDING', doctorId: 1, patientId: 1}),
@@ -74,7 +74,7 @@ async function seed () {
     Appointment.create({date: '2018-01-20 03:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 2}),
     Appointment.create({date: '2018-01-21 04:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 5}),
     Appointment.create({date: '2018-01-22 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 7}),
-    Appointment.create({date: '2018-01-18 06:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 9}),
+    Appointment.create({date: '2018-01-18 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 9}),
     Appointment.create({date: '2018-01-19 07:00:00.000-06', purpose: 'Check-up', status: 'PENDING', doctorId: 1, patientId: 9}),
     Appointment.create({date: '2018-01-26 08:00:00.000-06', purpose: 'Check-up', status: 'PENDING', doctorId: 1, patientId: 9}),
     Appointment.create({date: '2018-01-20 08:30:00.000-06', purpose: 'Check-up', status: 'PENDING', doctorId: 1, patientId: 6}),
