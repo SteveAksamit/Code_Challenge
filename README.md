@@ -57,5 +57,5 @@
 * Uploads go to the /public/files directory since it is a local development deployment. Obviously this would change if this app was deployed to production and I would use S3, Heroku, or Cloudinary for file storage.
 * I used the multer library to transfer local "uploaded" files to the project directory
 
-##Assumptions
+## Assumptions
 * A doctor cannot also be a patient and vice versa (or they would need two separate accounts)
