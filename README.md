@@ -2,7 +2,7 @@
 * All requirements from the instructions have been implemented
 
 ## Steps to run my app:
-1. Install postgres database named:  steve_code_challenge
+1. Install Postgres database named:  steve_code_challenge
 2. Run this command to clone git repo:   git clone https://github.com/SteveAksamit/Code_Challenge.git
 3. Run this command to move to project directory:   cd Code_Challenge
 4. Run this command to install NPM modules:   npm install
@@ -11,14 +11,14 @@
 7. Browse to http://localhost:8080/ and see test credentials on login page
 
 ## Tools Used
-* Boilermaker (seed project)
-* Sequelize (ORM to Postgres)
 * React
 * Redux
 * React-Router
 * React-Redux
 * Express
 * Webpack
+* Boilermaker (seed project)
+* Sequelize (ORM to Postgres)
 * Passport (user authentication middleware)
 * Semantic-UI-React (CSS Framework)
 * React-datepicker (calendar date-selector component)
@@ -49,10 +49,10 @@
 * I used a messages field to track cancellation messages, new appointment requests, and scheduled appointment notifications
 * Cancelled appointments are displayed as cancelled (as opposed to being deleted and/or not shown)
 
-##Store
+## Store
 * I kept a pattern of 1 key on the store object for each separate store file.
 
-# File View and Uploading
+## File View and Uploading
 * You can upload any type of file, but you can only view files in the app that are PDFs
 * Uploads go to the /public/files directory since it is a local development deployment. Obviously this would change if this app was deployed to production and I would use S3, Heroku, or Cloudinary for file storage.
 * I used the multer library to transfer local "uploaded" files to the project directory
