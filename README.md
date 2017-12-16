@@ -4,10 +4,11 @@
 ## Steps to run my app:
 1. Install postgres database named:  steve_code_challenge
 2. Run this command to clone git repo:   git clone https://github.com/SteveAksamit/Code_Challenge.git
-3. Run this command to install NPM modules:   npm install
-4. Run this command to build Webpack:   npm run build-client
-5. Run this command to seed DB:   npm run seed
-6. Browse to http://localhost:8080/ and see test credentials on login page
+3. Run this command to move to project directory:   cd Code_Challenge
+4. Run this command to install NPM modules:   npm install
+5. Run this command to build Webpack:   npm run build-client
+6. Run this command to seed Database:   npm run seed
+7. Browse to http://localhost:8080/ and see test credentials on login page
 
 ## Tools Used
 * Boilermaker (seed project)
@@ -54,6 +55,7 @@
 # File View and Uploading
 * You can upload any type of file, but you can only view files in the app that are PDFs
 * Uploads go to the /public/files directory since it is a local development deployment. Obviously this would change if this app was deployed to production and I would use S3, Heroku, or Cloudinary for file storage.
+* I used the multer library to transfer local "uploaded" files to the project directory
 
 ##Assumptions
 * A doctor cannot also be a patient and vice versa (or they would need two separate accounts)
