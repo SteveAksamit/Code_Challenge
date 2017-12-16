@@ -18,7 +18,7 @@ async function seed () {
     User.create({id: 10, email: 'rzimmerman@email.com', username: 'rzimmerman', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 11, email: 'jdavis@email.com', username: 'jdavis', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 12, email: 'kboscoe@email.com', username: 'kboscoe', password: '123', isDoctor: false, isPatient: true}),
-    User.create({id: 13, email: 'madams@email.com', username: 'madams', password: '123', isDoctor: false, isPatient: true}),
+    User.create({id: 13, email: 'maxios@email.com', username: 'maxios', password: '123', isDoctor: false, isPatient: true}),
     User.create({id: 14, email: 'dleadaman@email.com', username: 'dleadaman', password: '123', isDoctor: false, isPatient: true})
   ])
 
@@ -30,7 +30,7 @@ async function seed () {
   ])
 
   const patients = await Promise.all([
-    Patient.create({id: 1, firstName: 'Test', lastName:  'Patient', dateOfBirth: '1941-04-17', address: '123 Main Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-111-2222', userId: 5}),
+    Patient.create({id: 1, firstName: 'Test', lastName:  'Apatient', dateOfBirth: '1941-04-17', address: '123 Main Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-111-2222', userId: 5}),
     Patient.create({id: 2, firstName: 'Steve', lastName: 'Jordan', dateOfBirth: '1951-05-18', address: '123 Madison Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-111-8888', userId: 6}),
     Patient.create({id: 3, firstName: 'Nancy', lastName: 'Guilfoyle', dateOfBirth: '1961-06-19', address: '123 Michigan Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-888-0000', userId: 7}),
     Patient.create({id: 4, firstName: 'Mark', lastName: 'Lopotko', dateOfBirth: '1971-07-20', address: '123 LaSalle Avenue', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-444-7777', userId: 8}),
@@ -38,7 +38,7 @@ async function seed () {
     Patient.create({id: 6, firstName: 'Ronald', lastName: 'Zimmerman', dateOfBirth: '1991-09-22', address: '123 Superior Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-123-4455', userId: 10}),
     Patient.create({id: 7, firstName: 'Jim', lastName: 'Davis', dateOfBirth: '1991-09-22', address: '123 Maple Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '773-333-2323', userId: 11}),
     Patient.create({id: 8, firstName: 'Kenny', lastName: 'Boscoe', dateOfBirth: '1991-09-22', address: '123 Clark Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-4567', userId: 12}),
-    Patient.create({id: 9, firstName: 'Marie', lastName: 'Adams', dateOfBirth: '1991-09-22', address: '123 Addison Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-7654', userId: 13}),
+    Patient.create({id: 9, firstName: 'Marie', lastName: 'Axios', dateOfBirth: '1991-09-22', address: '123 Addison Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-7654', userId: 13}),
     Patient.create({id: 10, firstName: 'Dave', lastName: 'Leadaman', dateOfBirth: '1991-09-22', address: '123 Oak Street', city: 'Chicago', state: 'IL', zip: '60610', phoneNumber: '312-333-7676', userId: 14})
   ])
 
@@ -56,7 +56,7 @@ async function seed () {
   ])
 
   const appointments = await Promise.all([
-    Appointment.create({date: '2017-11-30 02:30:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 1}),
+    Appointment.create({date: '2017-11-30 02:30:00.000-06', purpose: 'Annual Check-up', status: 'PAST', doctorId: 1, patientId: 1}),
     Appointment.create({date: '2017-11-30 03:30:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 2}),
     Appointment.create({date: '2017-11-30 04:00:00.000-06', purpose: 'Check-up', status: 'PAST', doctorId: 1, patientId: 5}),
     Appointment.create({date: '2018-01-07 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 3}),
@@ -70,7 +70,6 @@ async function seed () {
     Appointment.create({date: '2018-01-21 10:30:00.000-06', purpose: 'Check-up', status: 'DECLINED', doctorId: 1, patientId: 5}),
     Appointment.create({date: '2018-01-22 05:30:00.000-06', purpose: 'Check-up', status: 'DECLINED', doctorId: 2, patientId: 6}),
     Appointment.create({date: '2018-01-18 04:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 6}),
-    Appointment.create({date: '2018-01-19 03:00:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 1}),
     Appointment.create({date: '2018-01-20 03:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 2}),
     Appointment.create({date: '2018-01-21 04:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 5}),
     Appointment.create({date: '2018-01-22 05:30:00.000-06', purpose: 'Check-up', status: 'UPCOMING', doctorId: 1, patientId: 7}),
