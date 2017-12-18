@@ -67,6 +67,11 @@
 ## API
 * Security implemented on backend in API to ensure that whoever is hitting API route is authorized to do so. One of the three functions in the securityMiddleware file handle this and get passed back into each route based on the level or required access for a given route ( is a patient / is the correct patient / is a doctor or is the correct patient). All 3 checks also require that a logged in user is hitting the API.
 
+## Assumptions
+* A doctor cannot also be a patient and vice versa (or they would need two separate accounts)
+* A Doctor can access all patient data in the system
+* A patient can only access their data in the system
+
 ## Outstanding To-Do's
 * Write unit tests for the store using axios-mock-adapter and redux-mock-store
 * Write unit tests for the react components using enzyme
