@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 /* ACTION TYPES*/
 const GET_ALL_APPTS_FOR_PAT = 'GET_ALL_APPTS_FOR_PAT'
@@ -17,7 +16,7 @@ const appointmentCancellation = cancelledAppt => ({ type: CANCEL_APPT, cancelled
 /* THUNK CREATORS */
 export const fetchAllApptsForPat = (patientId) =>
   dispatch =>
-    axios.get(`/api/patientAppointments/allPatients/${patientId}`)
+    axios.get(`/api/patientAppointments/allAppointments/${patientId}`)
       .then(res =>
         dispatch(getAllApptsForPat(res.data))
       )

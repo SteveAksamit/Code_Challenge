@@ -1,8 +1,9 @@
 const router = require('express').Router()
-const { Appointment, Doctor } = require('../db/models')
+const { Appointment } = require('../db/models')
+const { isPatient, isDoctorOrCorrectPatient } = require('../securityMiddleware')
 module.exports = router
 
-router.get('/allPatients/:patientId', (req, res, next) => {
+router.get('/allAppointments/:patientId', isDoctorOrCorrectPatient,  (req, res, next) => {
   return Appointment.findAll({
     where: {
       patientId: req.params.patientId
@@ -15,7 +16,7 @@ router.get('/allPatients/:patientId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/newAppointment', (req, res, next) => {
+router.post('/newAppointment', isPatient, (req, res, next) => {
   let dateTime = req.body.date.slice(0, 10) + ' ' + req.body.time
   return Appointment.create({
     date: dateTime,
@@ -29,7 +30,7 @@ router.post('/newAppointment', (req, res, next) => {
     .catch(next)
 })
 
-router.put('/patient/cancel/:appointmentId', (req, res, next) => {
+router.put('/patient/cancel/:appointmentId', isPatient, (req, res, next) => {
   let id = +req.params.appointmentId
   return Appointment.update(
     {

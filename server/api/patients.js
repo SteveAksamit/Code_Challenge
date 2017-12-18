@@ -1,8 +1,9 @@
 const router = require('express').Router()
 const { Patient, User } = require('../db/models')
+const { isDoctorOrCorrectPatient } = require('../securityMiddleware')
 module.exports = router
 
-router.get('/', (req, res, next) => {
+router.get('/', isDoctorOrCorrectPatient, (req, res, next) => {
   return Patient.findAll({
     include: [{ model: User }], order: [
       ['lastName', 'ASC']
@@ -12,7 +13,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/singlePatient/:userId', (req, res, next) => {
+router.get('/singlePatient/:userId', isDoctorOrCorrectPatient, (req, res, next) => {
   return Patient.findOne({
     where: {
       userId: req.params.userId

@@ -13,7 +13,7 @@ const AuthForm = (props) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group widths='equal'>
             <Form.Input name="username" label='Username' placeholder='Username' required />
-            <Form.Input name="password" label='Password' placeholder='Password' required style={{ 'paddingRight': '1.5em' }} />
+            <Form.Input name="password" label='Password' placeholder='Password' required type='password' style={{ 'paddingRight': '1.5em' }} />
           </Form.Group>
           <div>
             <Button type="submit">Login</Button>

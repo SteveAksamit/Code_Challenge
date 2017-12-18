@@ -30,7 +30,7 @@ const SingleAppointment = (props => {
     button = <Button onClick={cancelAppt} value={appointment.id}>Cancel</Button>
   }
   if (isDoctor && appointment.status === 'PENDING') {
-    button = <Button.Group>
+    button = <Button.Group size='mini'>
       <Button value={false} name={appointment.id} onClick={handleReason}>Decline</Button>
       <Button.Or />
       <Button positive value={true} name={appointment.id} onClick={handleReason}>Accept</Button>

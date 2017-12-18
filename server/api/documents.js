@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { Document } = require('../db/models')
-const fs = require('fs');
+const { isDoctor, isDoctorOrCorrectPatient } = require('../securityMiddleware')
 const path = require('path');
 const multer = require('multer')
 let newFileName;
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 module.exports = router
 
-router.get('/:patientId', (req, res, next) => {
+router.get('/:patientId', isDoctorOrCorrectPatient, (req, res, next) => {
   return Document.findAll({
     where: {
       patientId: req.params.patientId
@@ -26,7 +26,7 @@ router.get('/:patientId', (req, res, next) => {
     .catch(next)
 })
 
-router.delete('/:documentId', (req, res, next) => {
+router.delete('/:documentId', isDoctor, (req, res, next) => {
   return Document.destroy({
     where: {
       id: req.params.documentId
@@ -36,14 +36,14 @@ router.delete('/:documentId', (req, res, next) => {
     .catch(next)
 })
 
-router.post('/record', (req, res, next) => {
+router.post('/record', isDoctorOrCorrectPatient, (req, res, next) => {
   console.log(req.body)
   return Document.create(req.body)
     .then((newDocument) => res.json(newDocument))
     .catch(next)
 })
 
-router.post('/upload', upload.single('file'), (req, res, next) => {
+router.post('/upload', isDoctorOrCorrectPatient, upload.single('file'), (req, res, next) => {
   console.log(newFileName)
   res.json(newFileName)
 });
