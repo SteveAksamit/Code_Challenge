@@ -81,4 +81,4 @@
 ## Outstanding To-Do's
 * Write unit tests for the react components using enzyme
 * Write unit tests for API using supertest and chai
-* Move appointment cache/counter from allAppointments component to the store
+* Move appointment cache/counter from allPatients component to the store
