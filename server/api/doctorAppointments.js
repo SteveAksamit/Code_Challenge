@@ -4,7 +4,6 @@ const { isDoctorOrCorrectPatient } = require('../securityMiddleware')
 module.exports = router
 
 router.get('/singlePatient/:doctorId/:patientId', isDoctorOrCorrectPatient, (req, res, next) => {
-  console.log(req.user)
   return Appointment.findAll({
     where: {
       patientId: req.params.patientId,

@@ -37,7 +37,6 @@ router.delete('/:documentId', isDoctor, (req, res, next) => {
 })
 
 router.post('/record', isDoctorOrCorrectPatient, (req, res, next) => {
-  console.log(req.body)
   return Document.create(req.body)
     .then((newDocument) => res.json(newDocument))
     .catch(next)

@@ -72,7 +72,13 @@
 * A Doctor can access all patient data in the system
 * A patient can only access their data in the system
 
+## Unit Tests
+* To run tests, run this command:   npm run test
+* Wrote a "happy" and "sad" test for every API route
+* Happy tests are requested by an authorized user and perform the action expected
+* Sad tests are requested by a non authorized user and return a 401
+
 ## Outstanding To-Do's
-* Write unit tests for the store using axios-mock-adapter and redux-mock-store
 * Write unit tests for the react components using enzyme
 * Write unit tests for API using supertest and chai
+* Move appointment cache/counter from allAppointments component to the store

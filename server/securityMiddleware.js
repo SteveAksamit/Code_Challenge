@@ -23,7 +23,7 @@ module.exports = {
       }
     })
       .then(patient => {
-        if (req.user && (req.user.isDoctor || req.params.userId === req.user.id || (!patient || req.user.id === patient.userId))) return next();
+        if (req.user && (req.user.isDoctor || req.params.userId == req.user.id || (patient && req.user.id === patient.userId))) return next();
         reject(401, 'Not logged in as this Patient you are requesting data for and you are not a doctor. Cannot access this API route.', next);
         return next()
       })
