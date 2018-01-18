@@ -14,6 +14,7 @@
     "build-client": "webpack",
     "build-client-watch": "webpack -w",
     "lint": "eslint ./ --ignore-path .gitignore",
+    "deploy": "script/deploy",
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
     "start": "node server",
