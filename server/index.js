@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 8080
 const app = express()
 module.exports = app
 
-if (process.env.NODE_ENV !== 'production') require('../secrets')
+//if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 //https redirect
 const forceSsl = function (req, res, next) {
@@ -21,6 +21,10 @@ const forceSsl = function (req, res, next) {
   }
   return next();
 };
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(forceSsl);
+}
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
