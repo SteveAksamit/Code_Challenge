@@ -11,7 +11,7 @@ const Main = (props) => {
   return (
     <div>
         <Segment color='grey' inverted>
-          <Header textAlign='center' size='large'>Code Challenge - Steve Aksamit</Header>
+          <Header textAlign='center' size='large'>Doctor/Patient Scheduler - Steve Aksamit</Header>
           {
             isLoggedIn &&
             <Button floated='right' size='tiny' onClick={handleClick}>Logout</Button>
